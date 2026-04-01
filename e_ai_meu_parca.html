@@ -633,6 +633,7 @@ var GF=D; // dados filtrados globalmente
 var semAtual=14;
 var anoISOAtual=2026;
 var diaSemanaAtual=3;
+var FERIADOS=new Set(["2025-01-01", "2025-03-03", "2025-03-04", "2025-04-18", "2025-04-21", "2025-05-01", "2025-06-19", "2025-09-07", "2025-10-12", "2025-11-02", "2025-11-15", "2025-11-20", "2025-12-25", "2026-01-01", "2026-02-16", "2026-02-17", "2026-04-03", "2026-04-21", "2026-05-01", "2026-06-04", "2026-09-07", "2026-10-12", "2026-11-02", "2026-11-15", "2026-11-20", "2026-12-25", "2027-01-01", "2027-02-08", "2027-02-09", "2027-03-26", "2027-04-21", "2027-05-01", "2027-05-27", "2027-09-07", "2027-10-12", "2027-11-02", "2027-11-15", "2027-11-20", "2027-12-25"]);
 
 // Metricas gerais (computed once for NF, used by chatbot/kanban)
 var ativos=NF.filter(function(p){return p.sem4>0}).length;
@@ -1290,10 +1291,41 @@ function getWeekKey(yr, wk) {
   return yr + '-' + (wk < 10 ? '0' : '') + wk;
 }
 
-// Returns business days elapsed (Mon=1…Fri=5; Sat/Sun = full week = 5)
-function calcDiasUteis(dow){
-  if(dow>=6) return 5;
-  return dow;
+// Retorna a segunda-feira ISO de uma dada semana ISO (year, week)
+function getMondayOfWeek(year, week){
+  // ISO week 1 contém sempre 4 de janeiro
+  var jan4 = new Date(year, 0, 4);
+  var dow4 = jan4.getDay() || 7; // 1=Seg…7=Dom
+  var monday1 = new Date(jan4);
+  monday1.setDate(jan4.getDate() - dow4 + 1);
+  var monday = new Date(monday1);
+  monday.setDate(monday1.getDate() + (week - 1) * 7);
+  monday.setHours(0,0,0,0);
+  return monday;
+}
+
+// Formata Date como 'YYYY-MM-DD'
+function toISODate(d){
+  return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+}
+
+// Retorna {decorridos, total} de dias úteis da semana (excluindo feriados)
+// decorridos = dias úteis de Seg até hoje (inclusive)
+// total      = dias úteis da semana inteira
+function getInfoSemana(year, week){
+  var monday = getMondayOfWeek(year, week);
+  var hoje = new Date(); hoje.setHours(0,0,0,0);
+  var total = 0, decorridos = 0;
+  for(var i = 0; i < 5; i++){
+    var d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    var ds = toISODate(d);
+    if(!FERIADOS.has(ds)){
+      total++;
+      if(d <= hoje) decorridos++;
+    }
+  }
+  return {decorridos: Math.min(decorridos, total), total: Math.max(total, 1)};
 }
 
 // Populates the week selector with last 12 weeks that have data in JSON
@@ -1327,16 +1359,22 @@ function renderWoW() {
   var semAtualKey=selKey;
   var semAntKey=getWeekKey(semAntAno,semAntNum);
 
-  // --- Partial week correction ---
+  // --- Partial week correction (holidays-aware) ---
   var isCurrentWeek=(selKey===curKey);
-  var diasUteis=isCurrentWeek?calcDiasUteis(diaSemanaAtual):5;
-  var fator=diasUteis/5;
+  var infoSem = getInfoSemana(selAno, selSem);
+  var diasUteis      = isCurrentWeek ? infoSem.decorridos : infoSem.total;
+  var totalDiasUteis = infoSem.total;   // pode ser <5 se houver feriado na semana
+  var fator = totalDiasUteis > 0 ? diasUteis / totalDiasUteis : 1;
+  var semanaEmAndamento = isCurrentWeek && diasUteis < totalDiasUteis;
 
   // --- Partial badge ---
   var badge=document.getElementById('wowPartialBadge');
   if(badge){
-    if(isCurrentWeek&&diasUteis<5){
-      badge.innerHTML='<span class="wow-partial-badge">&#9203; Semana em andamento \u2013 '+diasUteis+'/5 dias \u00fateis | compara\u00e7\u00e3o ajustada proporcionalmente</span>';
+    if(semanaEmAndamento){
+      var feriadoEssaSem = totalDiasUteis < 5 ? ' (semana com feriado)' : '';
+      badge.innerHTML='<span class="wow-partial-badge">&#9203; Semana em andamento \u2013 '+diasUteis+'/'+totalDiasUteis+' dias \u00fateis'+feriadoEssaSem+' | compara\u00e7\u00e3o ajustada proporcionalmente</span>';
+    } else if(isCurrentWeek && totalDiasUteis < 5){
+      badge.innerHTML='<span class="wow-partial-badge" style="background:#e9d8fd;border-color:#805ad5;color:#553c9a">&#127919; Semana com feriado \u2013 '+totalDiasUteis+'/5 dias \u00fateis \u00fateis</span>';
     } else {
       badge.innerHTML='';
     }
@@ -1400,13 +1438,13 @@ function renderWoW() {
 
   // Projection note for partial week
   var projNote = '';
-  if(isCurrentWeek && diasUteis < 5 && fator > 0){
+  if(semanaEmAndamento && fator > 0){
     var proj = Math.round(totalAtual / fator);
     projNote = '<p class="wow-proj-note">Proje\u00e7\u00e3o semana completa: ~' + fN(proj) + ' leads</p>';
   }
 
   // Section A: KPI Cards
-  var adjLabel = isCurrentWeek && diasUteis < 5 ? ' (ajust. ' + diasUteis + '/5 du)' : '';
+  var adjLabel = semanaEmAndamento ? ' (ajust. ' + diasUteis + '/' + totalDiasUteis + ' du)' : (totalDiasUteis < 5 ? ' (sem. c/ feriado \u2013 ' + totalDiasUteis + ' du)' : '');
   var kpiHtml = '';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:var(--az)"><div class="wow-kpi-label">Total de Leads</div><div class="wow-kpi-value">' + fN(totalAtual) + '</div><div class="wow-kpi-sub">vs ' + fN(totalAnteriorAdj) + adjLabel + ' sem. anterior ' + deltaBadge(totalDelta, totalDeltaPct, true) + '</div>' + projNote + '</div>';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:var(--vd)"><div class="wow-kpi-label">Parceiros Ativos</div><div class="wow-kpi-value">' + ativosAtual + '</div><div class="wow-kpi-sub">vs ' + ativosAnterior + ' sem. anterior ' + deltaBadge(ativosDelta, null, true) + '</div></div>';
@@ -1492,7 +1530,8 @@ function renderWoW() {
     insights.push('<strong>' + pararam.length + ' parceiro(s)</strong> que enviavam na semana anterior não enviaram nesta semana: ' + pararam.slice(0, 3).map(function(p) { return p.nome + ' (' + p.anterior + ' leads)'; }).join(', ') + '.');
   }
 
-  var insHtml = '<h3 style="font-size:13px;font-weight:700;color:var(--ae);margin-bottom:12px">An\u00e1lise Autom\u00e1tica \u2014 Semana ' + w + (isCurrentWeek&&diasUteis<5?' ('+diasUteis+'/5 dias \u00fateis)':'') + '</h3>';
+  var semLabel = semanaEmAndamento ? ' ('+diasUteis+'/'+totalDiasUteis+' dias \u00fateis)' : (isCurrentWeek && totalDiasUteis<5 ? ' (semana c/ feriado \u2013 '+totalDiasUteis+' du)' : '');
+  var insHtml = '<h3 style="font-size:13px;font-weight:700;color:var(--ae);margin-bottom:12px">An\u00e1lise Autom\u00e1tica \u2014 Semana ' + w + semLabel + '</h3>';
   insights.forEach(function(txt, idx) {
     var col = bulletColors[idx % bulletColors.length];
     insHtml += '<div class="wow-insight-item"><div class="wow-insight-bullet" style="background:' + col + '"></div><div>' + txt + '</div></div>';
@@ -1504,9 +1543,9 @@ function renderWoW() {
   if(perspEl){
     var pH = '';
 
-    if(isCurrentWeek && diasUteis < 5){
+    if(semanaEmAndamento){
       // ---- Semana em andamento ----
-      var diasRestantes = 5 - diasUteis;
+      var diasRestantes = totalDiasUteis - diasUteis;
       var ritmoAtual = diasUteis > 0 ? (totalAtual / diasUteis) : 0;
       var projecaoFechamento = Math.round(ritmoAtual * 5);
       var gapProj = projecaoFechamento - totalAnterior; // projetado vs semana anterior (completa)
@@ -1519,9 +1558,10 @@ function renderWoW() {
 
       // Cards de métricas
       pH += '<div class="persp-grid">';
-      pH += '<div class="persp-card blue"><div class="pc-label">Ritmo Atual</div><div class="pc-value">' + ritmoAtual.toFixed(1) + ' leads/dia</div><div class="pc-sub">m\u00e9dia dos ' + diasUteis + ' dia(s) \u00fatil(eis) decorridos</div></div>';
+      var feriadoNote = totalDiasUteis < 5 ? ' \u2014 semana com feriado (' + totalDiasUteis + ' du)' : '';
+      pH += '<div class="persp-card blue"><div class="pc-label">Ritmo Atual</div><div class="pc-value">' + ritmoAtual.toFixed(1) + ' leads/dia</div><div class="pc-sub">m\u00e9dia dos ' + diasUteis + '/' + totalDiasUteis + ' dia(s) \u00fatil(eis) decorridos'+feriadoNote+'</div></div>';
       pH += '<div class="persp-card ' + tendCorStr + '"><div class="pc-label">Proje\u00e7\u00e3o de Fechamento</div><div class="pc-value">' + fN(projecaoFechamento) + ' leads</div><div class="pc-sub">' + tendCorEmoji + ' ' + (gapProj >= 0 ? '+' : '') + fN(gapProj) + ' (' + (gapPct >= 0 ? '+' : '') + gapPct + '%) vs sem. anterior</div></div>';
-      pH += '<div class="persp-card orange"><div class="pc-label">Leads Restantes para Igualar</div><div class="pc-value">' + fN(leadsParaIgualar) + '</div><div class="pc-sub">em ' + diasRestantes + ' dia(s) \u00fatil(eis) restantes</div></div>';
+      pH += '<div class="persp-card orange"><div class="pc-label">Leads Restantes para Igualar</div><div class="pc-value">' + fN(leadsParaIgualar) + '</div><div class="pc-sub">em ' + diasRestantes + ' dia(s) \u00fatil(eis) restante(s)</div></div>';
       if(ritmoNecessario !== null){
         pH += '<div class="persp-card purple"><div class="pc-label">Ritmo Necess\u00e1rio</div><div class="pc-value">' + ritmoNecessario + ' leads/dia</div><div class="pc-sub">para fechar igual \u00e0 semana anterior</div></div>';
       }
@@ -1530,11 +1570,11 @@ function renderWoW() {
       // Ações textuais
       pH += '<div>';
 
+      var feriadoCtx = totalDiasUteis < 5 ? ' Esta semana tem feriado (' + totalDiasUteis + ' dias \u00fateis no total).' : '';
       if(gapProj < 0){
-        // Semana projetada abaixo do anterior
-        pH += '<div class="persp-action"><span class="pa-icon">\u26a0\ufe0f</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> — <strong>' + fN(Math.abs(gapProj)) + ' a menos</strong> que a semana anterior (' + fN(totalAnterior) + '). Para recuperar, ser\u00e1 preciso acelerar para pelo menos <strong>' + (ritmoNecessario !== null ? ritmoNecessario : '—') + ' leads/dia</strong> nos pr\u00f3ximos ' + diasRestantes + ' dia(s) \u00fatil(eis).</div></div>';
+        pH += '<div class="persp-action"><span class="pa-icon">\u26a0\ufe0f</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> \u2014 <strong>' + fN(Math.abs(gapProj)) + ' a menos</strong> que a semana anterior (' + fN(totalAnterior) + ').' + feriadoCtx + ' Para recuperar, ser\u00e1 preciso acelerar para pelo menos <strong>' + (ritmoNecessario !== null ? ritmoNecessario : '\u2014') + ' leads/dia</strong> nos pr\u00f3ximos ' + diasRestantes + ' dia(s) \u00fatil(eis).</div></div>';
       } else {
-        pH += '<div class="persp-action"><span class="pa-icon">\u2705</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> — <strong>' + fN(gapProj) + ' a mais</strong> que a semana anterior (' + fN(totalAnterior) + '). Para superar +10%, o objetivo seria <strong>' + fN(Math.ceil(totalAnterior*1.1)) + ' leads</strong> na semana.</div></div>';
+        pH += '<div class="persp-action"><span class="pa-icon">\u2705</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> \u2014 <strong>' + fN(gapProj) + ' a mais</strong> que a semana anterior (' + fN(totalAnterior) + ').' + feriadoCtx + ' Para superar +10%, o objetivo seria <strong>' + fN(Math.ceil(totalAnterior*1.1)) + ' leads</strong> na semana.</div></div>';
       }
 
       // Parceiros adormecidos (enviaram na sem. anterior mas ainda não enviaram nessa)

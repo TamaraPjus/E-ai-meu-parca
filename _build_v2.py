@@ -8,7 +8,51 @@ Build v2 da plataforma 'E aí, meu parça'
 - Identidade PJUS com logo
 """
 import json
-from datetime import datetime
+from datetime import datetime, date, timedelta
+
+
+# ====================================================================
+# FERIADOS NACIONAIS BRASILEIROS
+# ====================================================================
+def calc_easter(year: int) -> date:
+    """Calcula a data da Páscoa para o ano dado (algoritmo Meeus/Jones/Butcher)."""
+    a = year % 19
+    b = year // 100
+    c = year % 100
+    d = b // 4
+    e = b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i = c // 4
+    k = c % 4
+    ll = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * ll) // 451
+    month = (h + ll - 7 * m + 114) // 31
+    day   = ((h + ll - 7 * m + 114) % 31) + 1
+    return date(year, month, day)
+
+def get_br_holidays(year: int) -> list:
+    """Retorna lista de strings ISO (YYYY-MM-DD) com feriados nacionais do ano."""
+    easter = calc_easter(year)
+    feriados = set()
+    # Feriados fixos
+    fixos = [(1,1),(4,21),(5,1),(9,7),(10,12),(11,2),(11,15),(11,20),(12,25)]
+    for m, d in fixos:
+        feriados.add(date(year, m, d).isoformat())
+    # Feriados móveis baseados na Páscoa
+    feriados.add((easter - timedelta(days=48)).isoformat())  # Segunda de Carnaval
+    feriados.add((easter - timedelta(days=47)).isoformat())  # Terça de Carnaval
+    feriados.add((easter - timedelta(days=2)).isoformat())   # Sexta-feira Santa
+    feriados.add((easter + timedelta(days=60)).isoformat())  # Corpus Christi
+    return sorted(feriados)
+
+# Gera feriados para ano anterior, atual e próximo (cobre sempre a janela de dados)
+_anos = [datetime.now().year - 1, datetime.now().year, datetime.now().year + 1]
+feriados_list = []
+for _ano in _anos:
+    feriados_list.extend(get_br_holidays(_ano))
+feriados_json = json.dumps(sorted(set(feriados_list)))
 
 JSON_PATH = r"C:\Users\tamara.araujo\PJUS INVESTIMENTOS EM DIREITOS CREDITORIOS LTDA\USwork - INTELIGENCIA DE MERCADO\02. robos\e_ai_meu_parca\parceiros_data.json"
 OUT_PATH = r"C:\Users\tamara.araujo\PJUS INVESTIMENTOS EM DIREITOS CREDITORIOS LTDA\USwork - INTELIGENCIA DE MERCADO\02. robos\e_ai_meu_parca\e_ai_meu_parca.html"
@@ -669,6 +713,7 @@ var GF=D; // dados filtrados globalmente
 var semAtual=""" + str(sem_atual_num) + r""";
 var anoISOAtual=""" + str(ano_iso_atual) + r""";
 var diaSemanaAtual=""" + str(dia_semana_atual) + r""";
+var FERIADOS=new Set(""" + feriados_json + r""");
 
 // Metricas gerais (computed once for NF, used by chatbot/kanban)
 var ativos=NF.filter(function(p){return p.sem4>0}).length;
@@ -1326,10 +1371,41 @@ function getWeekKey(yr, wk) {
   return yr + '-' + (wk < 10 ? '0' : '') + wk;
 }
 
-// Returns business days elapsed (Mon=1…Fri=5; Sat/Sun = full week = 5)
-function calcDiasUteis(dow){
-  if(dow>=6) return 5;
-  return dow;
+// Retorna a segunda-feira ISO de uma dada semana ISO (year, week)
+function getMondayOfWeek(year, week){
+  // ISO week 1 contém sempre 4 de janeiro
+  var jan4 = new Date(year, 0, 4);
+  var dow4 = jan4.getDay() || 7; // 1=Seg…7=Dom
+  var monday1 = new Date(jan4);
+  monday1.setDate(jan4.getDate() - dow4 + 1);
+  var monday = new Date(monday1);
+  monday.setDate(monday1.getDate() + (week - 1) * 7);
+  monday.setHours(0,0,0,0);
+  return monday;
+}
+
+// Formata Date como 'YYYY-MM-DD'
+function toISODate(d){
+  return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+}
+
+// Retorna {decorridos, total} de dias úteis da semana (excluindo feriados)
+// decorridos = dias úteis de Seg até hoje (inclusive)
+// total      = dias úteis da semana inteira
+function getInfoSemana(year, week){
+  var monday = getMondayOfWeek(year, week);
+  var hoje = new Date(); hoje.setHours(0,0,0,0);
+  var total = 0, decorridos = 0;
+  for(var i = 0; i < 5; i++){
+    var d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    var ds = toISODate(d);
+    if(!FERIADOS.has(ds)){
+      total++;
+      if(d <= hoje) decorridos++;
+    }
+  }
+  return {decorridos: Math.min(decorridos, total), total: Math.max(total, 1)};
 }
 
 // Populates the week selector with last 12 weeks that have data in JSON
@@ -1363,16 +1439,22 @@ function renderWoW() {
   var semAtualKey=selKey;
   var semAntKey=getWeekKey(semAntAno,semAntNum);
 
-  // --- Partial week correction ---
+  // --- Partial week correction (holidays-aware) ---
   var isCurrentWeek=(selKey===curKey);
-  var diasUteis=isCurrentWeek?calcDiasUteis(diaSemanaAtual):5;
-  var fator=diasUteis/5;
+  var infoSem = getInfoSemana(selAno, selSem);
+  var diasUteis      = isCurrentWeek ? infoSem.decorridos : infoSem.total;
+  var totalDiasUteis = infoSem.total;   // pode ser <5 se houver feriado na semana
+  var fator = totalDiasUteis > 0 ? diasUteis / totalDiasUteis : 1;
+  var semanaEmAndamento = isCurrentWeek && diasUteis < totalDiasUteis;
 
   // --- Partial badge ---
   var badge=document.getElementById('wowPartialBadge');
   if(badge){
-    if(isCurrentWeek&&diasUteis<5){
-      badge.innerHTML='<span class="wow-partial-badge">&#9203; Semana em andamento \u2013 '+diasUteis+'/5 dias \u00fateis | compara\u00e7\u00e3o ajustada proporcionalmente</span>';
+    if(semanaEmAndamento){
+      var feriadoEssaSem = totalDiasUteis < 5 ? ' (semana com feriado)' : '';
+      badge.innerHTML='<span class="wow-partial-badge">&#9203; Semana em andamento \u2013 '+diasUteis+'/'+totalDiasUteis+' dias \u00fateis'+feriadoEssaSem+' | compara\u00e7\u00e3o ajustada proporcionalmente</span>';
+    } else if(isCurrentWeek && totalDiasUteis < 5){
+      badge.innerHTML='<span class="wow-partial-badge" style="background:#e9d8fd;border-color:#805ad5;color:#553c9a">&#127919; Semana com feriado \u2013 '+totalDiasUteis+'/5 dias \u00fateis \u00fateis</span>';
     } else {
       badge.innerHTML='';
     }
@@ -1436,13 +1518,13 @@ function renderWoW() {
 
   // Projection note for partial week
   var projNote = '';
-  if(isCurrentWeek && diasUteis < 5 && fator > 0){
+  if(semanaEmAndamento && fator > 0){
     var proj = Math.round(totalAtual / fator);
     projNote = '<p class="wow-proj-note">Proje\u00e7\u00e3o semana completa: ~' + fN(proj) + ' leads</p>';
   }
 
   // Section A: KPI Cards
-  var adjLabel = isCurrentWeek && diasUteis < 5 ? ' (ajust. ' + diasUteis + '/5 du)' : '';
+  var adjLabel = semanaEmAndamento ? ' (ajust. ' + diasUteis + '/' + totalDiasUteis + ' du)' : (totalDiasUteis < 5 ? ' (sem. c/ feriado \u2013 ' + totalDiasUteis + ' du)' : '');
   var kpiHtml = '';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:var(--az)"><div class="wow-kpi-label">Total de Leads</div><div class="wow-kpi-value">' + fN(totalAtual) + '</div><div class="wow-kpi-sub">vs ' + fN(totalAnteriorAdj) + adjLabel + ' sem. anterior ' + deltaBadge(totalDelta, totalDeltaPct, true) + '</div>' + projNote + '</div>';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:var(--vd)"><div class="wow-kpi-label">Parceiros Ativos</div><div class="wow-kpi-value">' + ativosAtual + '</div><div class="wow-kpi-sub">vs ' + ativosAnterior + ' sem. anterior ' + deltaBadge(ativosDelta, null, true) + '</div></div>';
@@ -1528,7 +1610,8 @@ function renderWoW() {
     insights.push('<strong>' + pararam.length + ' parceiro(s)</strong> que enviavam na semana anterior não enviaram nesta semana: ' + pararam.slice(0, 3).map(function(p) { return p.nome + ' (' + p.anterior + ' leads)'; }).join(', ') + '.');
   }
 
-  var insHtml = '<h3 style="font-size:13px;font-weight:700;color:var(--ae);margin-bottom:12px">An\u00e1lise Autom\u00e1tica \u2014 Semana ' + w + (isCurrentWeek&&diasUteis<5?' ('+diasUteis+'/5 dias \u00fateis)':'') + '</h3>';
+  var semLabel = semanaEmAndamento ? ' ('+diasUteis+'/'+totalDiasUteis+' dias \u00fateis)' : (isCurrentWeek && totalDiasUteis<5 ? ' (semana c/ feriado \u2013 '+totalDiasUteis+' du)' : '');
+  var insHtml = '<h3 style="font-size:13px;font-weight:700;color:var(--ae);margin-bottom:12px">An\u00e1lise Autom\u00e1tica \u2014 Semana ' + w + semLabel + '</h3>';
   insights.forEach(function(txt, idx) {
     var col = bulletColors[idx % bulletColors.length];
     insHtml += '<div class="wow-insight-item"><div class="wow-insight-bullet" style="background:' + col + '"></div><div>' + txt + '</div></div>';
@@ -1540,9 +1623,9 @@ function renderWoW() {
   if(perspEl){
     var pH = '';
 
-    if(isCurrentWeek && diasUteis < 5){
+    if(semanaEmAndamento){
       // ---- Semana em andamento ----
-      var diasRestantes = 5 - diasUteis;
+      var diasRestantes = totalDiasUteis - diasUteis;
       var ritmoAtual = diasUteis > 0 ? (totalAtual / diasUteis) : 0;
       var projecaoFechamento = Math.round(ritmoAtual * 5);
       var gapProj = projecaoFechamento - totalAnterior; // projetado vs semana anterior (completa)
@@ -1555,9 +1638,10 @@ function renderWoW() {
 
       // Cards de métricas
       pH += '<div class="persp-grid">';
-      pH += '<div class="persp-card blue"><div class="pc-label">Ritmo Atual</div><div class="pc-value">' + ritmoAtual.toFixed(1) + ' leads/dia</div><div class="pc-sub">m\u00e9dia dos ' + diasUteis + ' dia(s) \u00fatil(eis) decorridos</div></div>';
+      var feriadoNote = totalDiasUteis < 5 ? ' \u2014 semana com feriado (' + totalDiasUteis + ' du)' : '';
+      pH += '<div class="persp-card blue"><div class="pc-label">Ritmo Atual</div><div class="pc-value">' + ritmoAtual.toFixed(1) + ' leads/dia</div><div class="pc-sub">m\u00e9dia dos ' + diasUteis + '/' + totalDiasUteis + ' dia(s) \u00fatil(eis) decorridos'+feriadoNote+'</div></div>';
       pH += '<div class="persp-card ' + tendCorStr + '"><div class="pc-label">Proje\u00e7\u00e3o de Fechamento</div><div class="pc-value">' + fN(projecaoFechamento) + ' leads</div><div class="pc-sub">' + tendCorEmoji + ' ' + (gapProj >= 0 ? '+' : '') + fN(gapProj) + ' (' + (gapPct >= 0 ? '+' : '') + gapPct + '%) vs sem. anterior</div></div>';
-      pH += '<div class="persp-card orange"><div class="pc-label">Leads Restantes para Igualar</div><div class="pc-value">' + fN(leadsParaIgualar) + '</div><div class="pc-sub">em ' + diasRestantes + ' dia(s) \u00fatil(eis) restantes</div></div>';
+      pH += '<div class="persp-card orange"><div class="pc-label">Leads Restantes para Igualar</div><div class="pc-value">' + fN(leadsParaIgualar) + '</div><div class="pc-sub">em ' + diasRestantes + ' dia(s) \u00fatil(eis) restante(s)</div></div>';
       if(ritmoNecessario !== null){
         pH += '<div class="persp-card purple"><div class="pc-label">Ritmo Necess\u00e1rio</div><div class="pc-value">' + ritmoNecessario + ' leads/dia</div><div class="pc-sub">para fechar igual \u00e0 semana anterior</div></div>';
       }
@@ -1566,11 +1650,11 @@ function renderWoW() {
       // Ações textuais
       pH += '<div>';
 
+      var feriadoCtx = totalDiasUteis < 5 ? ' Esta semana tem feriado (' + totalDiasUteis + ' dias \u00fateis no total).' : '';
       if(gapProj < 0){
-        // Semana projetada abaixo do anterior
-        pH += '<div class="persp-action"><span class="pa-icon">\u26a0\ufe0f</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> — <strong>' + fN(Math.abs(gapProj)) + ' a menos</strong> que a semana anterior (' + fN(totalAnterior) + '). Para recuperar, ser\u00e1 preciso acelerar para pelo menos <strong>' + (ritmoNecessario !== null ? ritmoNecessario : '—') + ' leads/dia</strong> nos pr\u00f3ximos ' + diasRestantes + ' dia(s) \u00fatil(eis).</div></div>';
+        pH += '<div class="persp-action"><span class="pa-icon">\u26a0\ufe0f</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> \u2014 <strong>' + fN(Math.abs(gapProj)) + ' a menos</strong> que a semana anterior (' + fN(totalAnterior) + ').' + feriadoCtx + ' Para recuperar, ser\u00e1 preciso acelerar para pelo menos <strong>' + (ritmoNecessario !== null ? ritmoNecessario : '\u2014') + ' leads/dia</strong> nos pr\u00f3ximos ' + diasRestantes + ' dia(s) \u00fatil(eis).</div></div>';
       } else {
-        pH += '<div class="persp-action"><span class="pa-icon">\u2705</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> — <strong>' + fN(gapProj) + ' a mais</strong> que a semana anterior (' + fN(totalAnterior) + '). Para superar +10%, o objetivo seria <strong>' + fN(Math.ceil(totalAnterior*1.1)) + ' leads</strong> na semana.</div></div>';
+        pH += '<div class="persp-action"><span class="pa-icon">\u2705</span><div>No ritmo atual (<strong>' + ritmoAtual.toFixed(1) + ' leads/dia</strong>), a semana deve fechar com <strong>' + fN(projecaoFechamento) + ' leads</strong> \u2014 <strong>' + fN(gapProj) + ' a mais</strong> que a semana anterior (' + fN(totalAnterior) + ').' + feriadoCtx + ' Para superar +10%, o objetivo seria <strong>' + fN(Math.ceil(totalAnterior*1.1)) + ' leads</strong> na semana.</div></div>';
       }
 
       // Parceiros adormecidos (enviaram na sem. anterior mas ainda não enviaram nessa)
