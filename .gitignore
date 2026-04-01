@@ -1,0 +1,23 @@
+# Arquivos Excel (dados sensíveis e pesados)
+*.xlsx
+*.xls
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Perfil do Chrome (dados de sessão)
+chrome_profile/
+
+# Logs
+logs/
+
+# Arquivos temporários
+*.tmp
+*.bak
+~$*
+
+# Variáveis de ambiente / segredos
+.env
+secrets.py
