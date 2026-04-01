@@ -113,7 +113,7 @@ body{font-family:'Inter',sans-serif;background:#F0F4F8;color:var(--ce);line-heig
 .stit .ico{font-size:18px}
 
 /* KPI CARDS */
-.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px}
+.kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-bottom:20px}
 .kpi{background:#fff;border-radius:var(--r12);padding:16px;box-shadow:var(--sh);border-left:4px solid var(--az);position:relative;overflow:hidden}
 .kpi-l{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#7A8599;margin-bottom:4px}
 .kpi-v{font-size:22px;font-weight:800;color:var(--ae);line-height:1.2}
@@ -262,6 +262,7 @@ body{font-family:'Inter',sans-serif;background:#F0F4F8;color:var(--ce);line-heig
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* RESPONSIVE */
+@media(max-width:1400px){.kpis{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:1200px){.kpis{grid-template-columns:repeat(3,1fr)}.kanban{grid-template-columns:repeat(2,1fr)}.chart-row,.dist-row{grid-template-columns:1fr}.insights{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.kpis{grid-template-columns:1fr}.kanban{grid-template-columns:1fr}.tabs{overflow-x:auto}.flt{flex-direction:column}.fi,.fs{width:100%}.chat-panel{width:calc(100vw - 48px);right:24px}.insights{grid-template-columns:1fr}}
 /* STORY BLOCKS */
@@ -503,7 +504,7 @@ HTML_BODY = """
   <div class="tw" style="max-height:calc(100vh - 200px);overflow-y:auto">
     <table id="expTable">
       <thead><tr>
-        <th data-col="nome" title="Nome ajustado do parceiro (normalizado para evitar duplicidades)">Nome</th><th data-col="cat" title="Categoria estratégica: Diamante (top), Prata, Bronze (sem compra), Novo, Em Recuperação, Inativo, Fantasma (compra sem lead)">Cat.</th><th data-col="regional" title="Regional do parceiro baseada na UF dos processos">Reg.</th><th data-col="isp" title="Índice de Saúde do Parceiro (0-100). Composição: Recência 25% + Produção 25% + Volume Ajustado 20% + Consistência 15% + Tendência 10% + Valor 5%">ISP</th><th data-col="saude" title="Classificação de saúde baseada no ISP: Excelente (80-100), Bom (60-79), Regular (40-59), Ruim (20-39), Péssimo (0-19)">Saúde</th><th data-col="leads" title="Total de leads enviados pelo parceiro desde o início do registro na base">Leads</th><th data-col="sem4" title="Leads enviados nas últimas 4 semanas (período mais recente)">4Sem</th><th data-col="pagos" title="Total de processos pagos (precatórios comprados) vinculados a este parceiro">Pagos</th><th data-col="ticket" title="Ticket médio = Valor total de compras ÷ Quantidade de pagos. Indica o valor médio por precatório comprado">Ticket</th><th data-col="taxa_conv" title="Taxa de conversão = Pagos ÷ Leads × 100. Indica quantos leads se transformaram em compra efetiva">Conv.</th><th data-col="tend" title="Tendência semanal: compara leads das últimas 4 semanas vs 4 semanas anteriores. Positivo = crescendo, Negativo = caindo">Tend.</th><th title="Visualização do volume de leads enviados por semana nas últimas 12 semanas. Cada barra = 1 semana, número acima = quantidade de leads">Últimas 12 Semanas</th>
+        <th data-col="nome" title="Nome ajustado do parceiro (normalizado para evitar duplicidades)">Nome</th><th data-col="cat" title="Categoria estratégica: Diamante (top), Prata, Bronze (sem compra), Novo, Em Recuperação, Inativo, Fantasma (compra sem lead)">Cat.</th><th data-col="regional" title="Regional do parceiro baseada na UF dos processos">Reg.</th><th data-col="isp" title="Índice de Saúde do Parceiro (0-100). Composição: Recência 25% + Produção 25% + Volume Ajustado 20% + Consistência 15% + Tendência 10% + Valor 5%">ISP</th><th data-col="saude" title="Classificação de saúde baseada no ISP: Excelente (80-100), Bom (60-79), Regular (40-59), Ruim (20-39), Péssimo (0-19)">Saúde</th><th data-col="leads" title="Total de leads enviados pelo parceiro desde o início do registro na base">Leads</th><th data-col="sem4" title="Leads enviados nas últimas 4 semanas (período mais recente)">4Sem</th><th data-col="pagos" title="Total de processos pagos (precatórios comprados) vinculados a este parceiro">Pagos</th><th data-col="ticket" title="Ticket médio = Valor total de compras ÷ Quantidade de pagos. Indica o valor médio por precatório comprado">Ticket</th><th data-col="taxa_conv" title="Taxa de conversão = Pagos ÷ Leads × 100. Indica quantos leads se transformaram em compra efetiva">Conv.</th><th data-col="tend" title="Tendência semanal: compara leads das últimas 4 semanas vs 4 semanas anteriores. Positivo = crescendo, Negativo = caindo">Tend.</th><th data-col="vlr_dist" title="Valor Bruto total dos processos em andamento deste parceiro, excluindo MIDs (CPF ≥ R$10M ou CNPJ ≥ R$5M). Representa o potencial distribuível atual.">VLR a Distribuir</th><th title="Visualização do volume de leads enviados por semana nas últimas 12 semanas. Cada barra = 1 semana, número acima = quantidade de leads">Últimas 12 Semanas</th>
       </tr></thead>
       <tbody id="expBody"></tbody>
     </table>
@@ -523,7 +524,7 @@ HTML_BODY = """
   <!-- SECTION A: KPI CARDS WoW -->
   <div class="story-block">
     <div class="story-hd"><span class="story-num">&#9733;</span><span class="story-label">Resumo Semanal (WoW)</span><span class="story-desc">comparativo semana atual vs anterior</span></div>
-    <div class="kpis" id="wowKpis" style="grid-template-columns:repeat(4,1fr)"></div>
+    <div class="kpis" id="wowKpis" style="grid-template-columns:repeat(5,1fr)"></div>
   </div>
 
   <!-- SECTION B: Top 5 AUMENTARAM -->
@@ -738,13 +739,15 @@ function renderKPIs(){
   var _tc=GF.reduce(function(s,p){return s+p.compra},0);
   var _ispVals=gf.filter(function(p){return p.isp>=0}).map(function(p){return p.isp});
   var _ispMédio=_ispVals.length>0?Math.round(_ispVals.reduce(function(s,v){return s+v},0)/_ispVals.length):0;
+  var _vlrDist=GF.reduce(function(s,p){return s+(p.vlr_dist||0)},0);
   document.getElementById('kpiGrid').innerHTML=[
     ['Base Total',fN(GF.length),'parceiros mapeados',''],
     ['Ativos (4 sem)',fN(_ativos),gf.length>0?Math.round(_ativos/gf.length*100)+'% da base':'--',''],
     ['Leads (4 sem)',fN(_l4),'enviados recentemente',''],
     ['Processos Pagos',fN(_tp),'compras realizadas','green'],
     ['R$ Compras',fB(_tc),'valor acumulado','green'],
-    ['ISP Médio',_ispMédio,'indice de saude do parceiro','orange']
+    ['ISP Médio',_ispMédio,'indice de saude do parceiro','orange'],
+    ['VLR a Distribuir',fB(_vlrDist),'em andamento (ex-MID)','purple']
   ].map(function(a){return '<div class="kpi '+a[3]+'"><div class="kpi-l">'+a[0]+'</div><div class="kpi-v">'+a[1]+'</div><div class="kpi-d">'+a[2]+'</div></div>'}).join('');
 
   // Highlights
@@ -1525,11 +1528,23 @@ function renderWoW() {
 
   // Section A: KPI Cards
   var adjLabel = semanaEmAndamento ? ' (ajust. ' + diasUteis + '/' + totalDiasUteis + ' du)' : (totalDiasUteis < 5 ? ' (sem. c/ feriado \u2013 ' + totalDiasUteis + ' du)' : '');
+
+  // VLR a distribuir por semana
+  var vlrAtual=0, vlrAnterior=0;
+  D.forEach(function(p){
+    vlrAtual   += ((p.vlr_dist_semanas||{})[semAtualKey]||0);
+    vlrAnterior += ((p.vlr_dist_semanas||{})[semAntKey]||0);
+  });
+  var vlrAntAdj   = Math.round(vlrAnterior * fator);
+  var vlrDelta    = vlrAtual - vlrAntAdj;
+  var vlrDeltaPct = vlrAntAdj > 0 ? (vlrDelta / vlrAntAdj * 100) : 0;
+
   var kpiHtml = '';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:var(--az)"><div class="wow-kpi-label">Total de Leads</div><div class="wow-kpi-value">' + fN(totalAtual) + '</div><div class="wow-kpi-sub">vs ' + fN(totalAnteriorAdj) + adjLabel + ' sem. anterior ' + deltaBadge(totalDelta, totalDeltaPct, true) + '</div>' + projNote + '</div>';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:var(--vd)"><div class="wow-kpi-label">Parceiros Ativos</div><div class="wow-kpi-value">' + ativosAtual + '</div><div class="wow-kpi-sub">vs ' + ativosAnterior + ' sem. anterior ' + deltaBadge(ativosDelta, null, true) + '</div></div>';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:#FFD400"><div class="wow-kpi-label">M\u00e9dia por Ativo</div><div class="wow-kpi-value">' + avgAtual.toFixed(1) + '</div><div class="wow-kpi-sub">vs ' + avgAnteriorAdj.toFixed(1) + adjLabel + ' sem. anterior ' + deltaBadge(avgDelta, avgDeltaPct, false) + '</div></div>';
   kpiHtml += '<div class="wow-kpi" style="border-left-color:var(--warn)"><div class="wow-kpi-label">ISP M\u00e9dio</div><div class="wow-kpi-value">' + ispMedNow + '</div><div class="wow-kpi-sub">\u00edndice de sa\u00fade atual da base</div></div>';
+  kpiHtml += '<div class="wow-kpi" style="border-left-color:#805ad5"><div class="wow-kpi-label">VLR a Distribuir</div><div class="wow-kpi-value" style="color:#805ad5;font-size:18px">' + fB(vlrAtual) + '</div><div class="wow-kpi-sub">vs ' + fB(vlrAntAdj) + adjLabel + ' sem. anterior ' + deltaBadge(vlrDelta, vlrDeltaPct, false) + '</div></div>';
   document.getElementById('wowKpis').innerHTML = kpiHtml;
 
   // Sort for top increases and decreases
@@ -2180,10 +2195,11 @@ function renderExp(){
     var tk=p.pagos>0?fB(Math.round(p.compra/p.pagos)):'--';
     var conv=p.leads>0&&p.pagos>0?(p.taxa_conv.toFixed(1)+'%'):'--';
     var regBd='<span class="bd" style="background:'+(REG_COLORS[p.regional]||'#B0B0B0')+';color:'+(p.regional==='SP (C/D)'||p.regional==='N/I'?'#333':'#fff')+'">'+p.regional+'</span>';
-    var r='<tr class="'+rc+'" style="cursor:pointer" onclick="toggleX(\''+rid+'\')"><td><strong>'+p.nome+'</strong></td><td>'+catBd(p.cat)+'</td><td>'+regBd+'</td><td>'+(p.isp===-1?'--':p.isp)+'</td><td>'+sauBd(p.saude)+'</td><td>'+fN(p.leads)+'</td><td>'+fN(p.sem4)+'</td><td>'+fN(p.pagos)+'</td><td>'+tk+'</td><td>'+conv+'</td><td>'+tA(p.tend)+'</td><td>'+buildSparkVis(p)+'</td></tr>';
+    var vdStr=p.vlr_dist>0?'<span style="font-size:11px;font-weight:700;color:#805ad5">'+fB(p.vlr_dist)+'</span>':'<span style="color:#ccc">--</span>';
+    var r='<tr class="'+rc+'" style="cursor:pointer" onclick="toggleX(\''+rid+'\')"><td><strong>'+p.nome+'</strong></td><td>'+catBd(p.cat)+'</td><td>'+regBd+'</td><td>'+(p.isp===-1?'--':p.isp)+'</td><td>'+sauBd(p.saude)+'</td><td>'+fN(p.leads)+'</td><td>'+fN(p.sem4)+'</td><td>'+fN(p.pagos)+'</td><td>'+tk+'</td><td>'+conv+'</td><td>'+tA(p.tend)+'</td><td>'+vdStr+'</td><td>'+buildSparkVis(p)+'</td></tr>';
     // Gerar analise conclusiva
     var analise=buildAnalise(p);
-    r+='<tr class="exr" id="'+rid+'"><td colspan="12"><div class="exc" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
+    r+='<tr class="exr" id="'+rid+'"><td colspan="13"><div class="exc" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
     // Coluna 1: Situacao e Contexto
     r+='<div style="display:flex;flex-direction:column;gap:10px">';
     r+='<div style="background:#F7FAFC;padding:10px 14px;border-radius:8px;border-left:3px solid var(--az)"><div class="fl" style="color:var(--az);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">\u{1F4CA} Situação Atual</div><div class="fv" style="font-size:12px;line-height:1.5">'+analise.situacao+'</div></div>';
@@ -2202,6 +2218,7 @@ function renderExp(){
     r+='<div><span style="color:#7A8599">Conversão:</span> <strong>'+fP(p.taxa_conv)+'</strong></div>';
     r+='<div><span style="color:#7A8599">Meses ativos:</span> <strong>'+p.meses+'</strong></div>';
     r+='<div><span style="color:#7A8599">Envio:</span> <strong>'+(p.envio_class||'--')+'</strong></div>';
+    r+='<div style="grid-column:span 2"><span style="color:#805ad5;font-weight:700">VLR a Distribuir:</span> <strong style="color:#805ad5">'+(p.vlr_dist>0?fB(p.vlr_dist):'--')+'</strong> <span style="color:#7A8599;font-size:10px">(em andamento, ex-MID)</span></div>';
     r+='</div></div>';
     // ISP Breakdown
     r+='<div style="background:#F7FAFC;padding:10px 14px;border-radius:8px"><div class="fl" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">\u{1F9E9} ISP '+p.isp+'/100</div>';

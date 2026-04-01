@@ -31,6 +31,35 @@ def to_int(v):
     except: return 0
 
 import re
+
+def normalizar_doc(doc_raw):
+    """Normaliza CPF/CNPJ: remove não-dígitos, aplica zfill conforme comprimento.
+    Retorna (digitos_str, tipo) onde tipo = 'cpf', 'cnpj' ou 'invalido'."""
+    if doc_raw is None:
+        return "", "invalido"
+    # Se vier como float do COM (ex: 1234567890.0), converter para int primeiro
+    try:
+        s = re.sub(r'\D', '', str(int(float(doc_raw))) if isinstance(doc_raw, float) else str(doc_raw))
+    except Exception:
+        return "", "invalido"
+    n = len(s)
+    if n == 0:
+        return "", "invalido"
+    if n <= 11:
+        return s.zfill(11), "cpf"
+    if n <= 14:
+        return s.zfill(14), "cnpj"
+    return s, "invalido"
+
+def is_mid(doc_raw, vlr_bruto):
+    """Retorna True se o registro é classificado como MID."""
+    _, tipo = normalizar_doc(doc_raw)
+    if tipo == "cpf"  and vlr_bruto >= 10_000_000:
+        return True
+    if tipo == "cnpj" and vlr_bruto >= 5_000_000:
+        return True
+    return False
+
 def normalizar_nome(nome):
     """Remove prefixo CPF/CNPJ (ex: '57.893.313 HYAN NOGUEIRA' -> 'HYAN NOGUEIRA')
     e limpa nomes numéricos inválidos."""
@@ -69,6 +98,12 @@ envio = defaultdict(lambda: {
     "regionais": defaultdict(int),
 })
 
+# VLR a distribuir: Em andamento, varejo=sim, excluindo MID
+vlr_dist_raw = defaultdict(lambda: {"total": 0.0, "por_semana": defaultdict(float)})
+_vlr_mid_count = 0
+_vlr_mid_valor = 0.0
+_vlr_dist_count = 0
+
 linhas_filtradas = 0
 linhas_total = 0
 
@@ -91,6 +126,21 @@ for r in range(2, ult_e + 1):
     if not nome: continue
     nome = normalizar_nome(nome)
     if not nome: continue
+    # --- VLR a distribuir (acumulado no mesmo loop) ---
+    status_val = ws_e.Cells(r, 7).Value   # col 7 = Status
+    if status_val and str(status_val).strip() == "Em andamento":
+        doc_raw  = ws_e.Cells(r, 5).Value  # col 5 = DocumentoCedente
+        vlr_bruto = to_float(ws_e.Cells(r, 8).Value)  # col 8 = ValorBruto
+        if is_mid(doc_raw, vlr_bruto):
+            _vlr_mid_count += 1
+            _vlr_mid_valor += vlr_bruto
+        else:
+            _vlr_dist_count += 1
+            vd = vlr_dist_raw[nome]
+            vd["total"] += vlr_bruto
+            if ano >= 2025 and sem > 0:
+                vd["por_semana"][(ano, sem)] += vlr_bruto
+
     p = envio[nome]
     # Contagem por linha (cada registro = 1 lead)
     p["total"] += 1
@@ -108,6 +158,8 @@ for r in range(2, ult_e + 1):
 
 print(f"  Filtro Varejo=sim: {linhas_filtradas}/{linhas_total} linhas ({linhas_filtradas*100//max(1,linhas_total)}%)")
 print(f"  Contagem por linha (cada registro = 1 lead)")
+_vlr_total = sum(v["total"] for v in vlr_dist_raw.values())
+print(f"  VLR a distribuir: R${_vlr_total:,.0f} ({_vlr_dist_count} reg) | MIDs excluidos: {_vlr_mid_count} reg / R${_vlr_mid_valor:,.0f}")
 
 # BD_Parceiros (fonte de UF)
 ws_parc = wb.Worksheets("BD_Parceiros")
@@ -582,6 +634,12 @@ for nome in todos_nomes:
         # Datas para filtro (semana/ano do primeiro envio e ultimo pago)
         "primeira_sem": list(primeira_sem) if primeira_sem else None,
         "ultima_compra_sem": list(pg["ultimo_pago"]) if pg["ultimo_pago"] != (0,0) else None,
+        # VLR a distribuir (Em andamento, excluindo MID)
+        "vlr_dist": round(vlr_dist_raw[nome]["total"]),
+        "vlr_dist_semanas": {
+            f"{a}-{s:02d}": round(v)
+            for (a, s), v in vlr_dist_raw[nome]["por_semana"].items()
+        },
     })
 
 # Stats
