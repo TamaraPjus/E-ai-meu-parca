@@ -280,6 +280,13 @@ body{font-family:'Inter',sans-serif;background:#F0F4F8;color:var(--ce);line-heig
 .persp-dormentes table{margin-top:8px;width:100%;font-size:11px;border-collapse:collapse}
 .persp-dormentes td,.persp-dormentes th{padding:4px 8px;border-bottom:1px solid #F0F2F5;text-align:left}
 .persp-dormentes th{font-weight:700;color:#7A8599;font-size:10px;text-transform:uppercase}
+/* NAME AUTOCOMPLETE */
+.name-ac-wrap{position:relative;display:inline-block}
+.name-suggest{position:absolute;top:100%;left:0;min-width:260px;max-width:380px;background:#fff;border:1px solid #dde3ec;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.12);z-index:9999;overflow:hidden;margin-top:2px}
+.name-suggest-item{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;cursor:pointer;gap:10px;transition:background .12s}
+.name-suggest-item:hover{background:#f0f6ff}
+.ns-name{font-size:12px;font-weight:600;color:var(--ae);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.ns-cat{font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;background:#E2E8F0;color:#7A8599;white-space:nowrap;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -313,7 +320,7 @@ body{font-family:'Inter',sans-serif;background:#F0F4F8;color:var(--ce);line-heig
     <div class="ms-wrap" id="msEnvio"><button class="ms-btn" onclick="toggleMS('msEnvio')">Envio <span class="ms-arrow">&#9662;</span></button><div class="ms-dd" style="display:none"><label><input type="checkbox" value="Consistente" onchange="applyGlobalFilters()"> Consistente</label><label><input type="checkbox" value="Regular" onchange="applyGlobalFilters()"> Regular</label><label><input type="checkbox" value="Esporadico" onchange="applyGlobalFilters()"> Esporádico</label><label><input type="checkbox" value="Novo" onchange="applyGlobalFilters()"> Novo</label><label><input type="checkbox" value="Sem envio" onchange="applyGlobalFilters()"> Sem envio</label></div></div>
     <div class="ms-wrap" id="msRegional"><button class="ms-btn" onclick="toggleMS('msRegional')">Regional <span class="ms-arrow">&#9662;</span></button><div class="ms-dd" style="display:none"><label><input type="checkbox" value="SP (C/D)" onchange="applyGlobalFilters()"> SP (C/D)</label><label><input type="checkbox" value="Regional A" onchange="applyGlobalFilters()"> Regional A</label><label><input type="checkbox" value="Regional B" onchange="applyGlobalFilters()"> Regional B</label><label><input type="checkbox" value="Regional D" onchange="applyGlobalFilters()"> Regional D</label><label><input type="checkbox" value="N/I" onchange="applyGlobalFilters()"> N/I</label></div></div>
     <div style="display:flex;gap:4px;align-items:center"><label style="font-size:10px;color:#7A8599">De</label><input type="date" class="fi" id="gfDateFrom" onchange="applyGlobalFilters()" style="font-size:11px;padding:4px 6px"><label style="font-size:10px;color:#7A8599">Até</label><input type="date" class="fi" id="gfDateTo" onchange="applyGlobalFilters()" style="font-size:11px;padding:4px 6px"></div>
-    <input type="text" class="fi" id="gfNome" placeholder="Buscar parceiro..." oninput="applyGlobalFilters()" style="min-width:160px">
+    <div class="name-ac-wrap"><input type="text" class="fi" id="gfNome" placeholder="Buscar parceiro..." oninput="applyGlobalFilters()" style="min-width:160px" autocomplete="off"><div id="gfNomeSuggest" class="name-suggest" style="display:none"></div></div>
     <button class="btn btn-o" onclick="resetGlobalFilters()">Limpar</button>
     <span style="margin-left:auto;font-size:10px;color:#7A8599" id="gfCount"></span>
   </div>
@@ -407,7 +414,7 @@ body{font-family:'Inter',sans-serif;background:#F0F4F8;color:var(--ce);line-heig
 <!-- EXPLORADOR -->
 <div class="pnl" id="p-dados">
   <div class="flt" style="flex-wrap:wrap;gap:8px;align-items:center">
-    <input type="text" class="fi" id="searchName" placeholder="Buscar por nome..." style="min-width:160px">
+    <div class="name-ac-wrap"><input type="text" class="fi" id="searchName" placeholder="Buscar por nome..." style="min-width:160px" autocomplete="off"><div id="searchNameSuggest" class="name-suggest" style="display:none"></div></div>
     <div class="ms-wrap" id="msCatDados"><button class="ms-btn" onclick="toggleMS('msCatDados')">Categorias <span class="ms-arrow">&#9662;</span></button><div class="ms-dd" style="display:none"><label><input type="checkbox" value="Diamante" onchange="filterExplorer()"> Diamante</label><label><input type="checkbox" value="Prata" onchange="filterExplorer()"> Prata</label><label><input type="checkbox" value="Bronze" onchange="filterExplorer()"> Bronze</label><label><input type="checkbox" value="Novo" onchange="filterExplorer()"> Novo</label><label><input type="checkbox" value="Em Recuperação" onchange="filterExplorer()"> Em Recuperação</label><label><input type="checkbox" value="Inativo" onchange="filterExplorer()"> Inativo</label><label><input type="checkbox" value="Fantasma" onchange="filterExplorer()"> Fantasma</label></div></div>
     <div class="ms-wrap" id="msSaudeDados"><button class="ms-btn" onclick="toggleMS('msSaudeDados')">Saúde <span class="ms-arrow">&#9662;</span></button><div class="ms-dd" style="display:none"><label><input type="checkbox" value="Excelente" onchange="filterExplorer()"> Excelente</label><label><input type="checkbox" value="Bom" onchange="filterExplorer()"> Bom</label><label><input type="checkbox" value="Regular" onchange="filterExplorer()"> Regular</label><label><input type="checkbox" value="Ruim" onchange="filterExplorer()"> Ruim</label><label><input type="checkbox" value="Péssimo" onchange="filterExplorer()"> Péssimo</label><label><input type="checkbox" value="Em Recuperação" onchange="filterExplorer()"> Em Recuperação</label><label><input type="checkbox" value="N/A" onchange="filterExplorer()"> N/A</label></div></div>
     <div class="ms-wrap" id="msRegionalDados"><button class="ms-btn" onclick="toggleMS('msRegionalDados')">Regional <span class="ms-arrow">&#9662;</span></button><div class="ms-dd" style="display:none"><label><input type="checkbox" value="SP (C/D)" onchange="filterExplorer()"> SP (C/D)</label><label><input type="checkbox" value="Regional A" onchange="filterExplorer()"> Regional A</label><label><input type="checkbox" value="Regional B" onchange="filterExplorer()"> Regional B</label><label><input type="checkbox" value="Regional D" onchange="filterExplorer()"> Regional D</label><label><input type="checkbox" value="N/I" onchange="filterExplorer()"> N/I</label></div></div>
@@ -1538,7 +1545,7 @@ function renderWoW() {
         var potencialAdj = Math.round(potencial * fator);
         pH += '<div class="persp-action"><span class="pa-icon">\ud83d\udca4</span><div><strong>' + adormecidos.length + ' parceiro(s)</strong> que enviaram na semana anterior ainda n\u00e3o registraram leads esta semana. Potencial represado: <strong>~' + fN(potencialAdj) + ' leads</strong> (proporcional ao recorte atual). Acionar esses parceiros pode ser suficiente para recuperar a semana.</div></div>';
         pH += '<details class="persp-dormentes"><summary>Ver parceiros adormecidos (' + adormecidos.length + ')</summary>';
-        pH += '<table><thead><tr><th>Parceiro</th><th>Cat.</th><th>Leads s. ant.</th><th>Potencial adj.</th></tr></thead><tbody>';
+        pH += '<table><thead><tr><th>Parceiro</th><th>Cat.</th><th>Leads s. ant. (total)</th><th title="Leads da semana anterior multiplicados pelo fator de dias \u00fateis decorridos. Ex: se a semana atual tem 3/5 dias \u00fateis, o esperado \u00e9 60% do que o parceiro enviou na semana anterior.">Esperado esta semana \u2139\ufe0f</th></tr></thead><tbody>';
         adormecidos.slice(0,15).forEach(function(p){
           pH += '<tr><td><strong>'+p.nome+'</strong></td><td>'+catBd(p.cat)+'</td><td style="text-align:center">'+p.anterior+'</td><td style="text-align:center">'+Math.round(p.anterior*fator)+'</td></tr>';
         });
@@ -1604,8 +1611,12 @@ function renderWoW() {
   if(fromMonth<0){fromMonth+=12;fromYear-=1}
   var fromDate=new Date(fromYear,fromMonth,1);
   var fmt=function(d){var y=d.getFullYear();var m=('0'+(d.getMonth()+1)).slice(-2);var dd=('0'+d.getDate()).slice(-2);return y+'-'+m+'-'+dd};
-  document.getElementById('gfDateFrom').value=fmt(fromDate);
-  document.getElementById('gfDateTo').value=fmt(toDate);
+  var fromStr=fmt(fromDate), toStr=fmt(toDate);
+  document.getElementById('gfDateFrom').value=fromStr;
+  document.getElementById('gfDateTo').value=toStr;
+  // Segunda aba (Explorador) usa o mesmo período por padrão
+  document.getElementById('dadosDateFrom').value=fromStr;
+  document.getElementById('dadosDateTo').value=toStr;
 })();
 
 // ===== BLOCO 7: VISAO POR REGIONAL =====
@@ -2121,6 +2132,57 @@ function exportCSV(){
   URL.revokeObjectURL(url);showToast('CSV exportado!');
 }
 renderExp();
+
+// ===== NAME AUTOCOMPLETE =====
+function setupNameAutocomplete(inputId, suggestId, onSelectFn) {
+  var inp = document.getElementById(inputId);
+  var sug = document.getElementById(suggestId);
+  if(!inp || !sug) return;
+
+  function showSuggestions() {
+    var q = inp.value.toLowerCase().trim();
+    sug.innerHTML = '';
+    if(q.length < 1) { sug.style.display='none'; return; }
+    var matches = D.filter(function(p){ return p.nome.toLowerCase().indexOf(q) >= 0; })
+      .sort(function(a,b){
+        var as = a.nome.toLowerCase().startsWith(q) ? 0 : 1;
+        var bs = b.nome.toLowerCase().startsWith(q) ? 0 : 1;
+        return as - bs || a.nome.localeCompare(b.nome);
+      }).slice(0, 10);
+    if(matches.length === 0) { sug.style.display='none'; return; }
+    matches.forEach(function(p) {
+      var item = document.createElement('div');
+      item.className = 'name-suggest-item';
+      // highlight matching part
+      var nm = p.nome;
+      var idx = nm.toLowerCase().indexOf(q);
+      var hl = idx >= 0
+        ? nm.slice(0,idx)+'<mark style="background:#d6eaff;padding:0">'+nm.slice(idx,idx+q.length)+'</mark>'+nm.slice(idx+q.length)
+        : nm;
+      item.innerHTML = '<span class="ns-name">'+hl+'</span><span class="ns-cat">'+p.cat+'</span>';
+      item.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        inp.value = p.nome;
+        sug.style.display = 'none';
+        onSelectFn();
+      });
+      sug.appendChild(item);
+    });
+    sug.style.display = 'block';
+  }
+
+  inp.addEventListener('input', showSuggestions);
+  inp.addEventListener('focus', showSuggestions);
+  inp.addEventListener('blur', function() {
+    setTimeout(function(){ sug.style.display='none'; }, 180);
+  });
+  inp.addEventListener('keydown', function(e) {
+    if(e.key === 'Escape') { sug.style.display='none'; }
+    if(e.key === 'Enter') { sug.style.display='none'; onSelectFn(); }
+  });
+}
+setupNameAutocomplete('gfNome', 'gfNomeSuggest', applyGlobalFilters);
+setupNameAutocomplete('searchName', 'searchNameSuggest', renderExp);
 
 // ===== CHATBOT =====
 document.getElementById('chatToggle').addEventListener('click',function(){
