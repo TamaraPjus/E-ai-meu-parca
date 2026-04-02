@@ -2823,3 +2823,33 @@ with open(OUT_PATH, "w", encoding="utf-8") as f:
 
 print(f"HTML v2 gerado: {OUT_PATH}")
 print(f"Tamanho: {len(output):,} chars")
+
+# ====================================================================
+# AUTO-SAVE NO GITHUB
+# ====================================================================
+import subprocess, sys, os
+
+def _git_push_github():
+    repo_dir = os.path.dirname(os.path.abspath(__file__))
+    semana_label = hoje  # já definido como string "YYYY-MM-DD"
+    msg = f"auto: dashboard atualizado em {semana_label}"
+    try:
+        # Adiciona apenas os arquivos principais (evita subir dados sensíveis acidentalmente)
+        files = ["e_ai_meu_parca.html", "_build_v2.py", "_reclassificar_v3.py", "parceiros_data.json"]
+        existing = [f for f in files if os.path.exists(os.path.join(repo_dir, f))]
+        subprocess.run(["git", "add"] + existing, cwd=repo_dir, check=True)
+        # Verifica se há algo para commitar
+        status = subprocess.run(["git", "status", "--porcelain"], cwd=repo_dir,
+                                capture_output=True, text=True)
+        if not status.stdout.strip():
+            print("GitHub: nenhuma alteração nova para commitar.")
+            return
+        subprocess.run(["git", "commit", "-m", msg], cwd=repo_dir, check=True)
+        subprocess.run(["git", "push", "origin", "master:main"], cwd=repo_dir, check=True)
+        print(f"✅ GitHub atualizado: {msg}")
+    except subprocess.CalledProcessError as e:
+        print(f"⚠️  Erro ao salvar no GitHub: {e}")
+    except FileNotFoundError:
+        print("⚠️  Git não encontrado no PATH. Instale o Git para habilitar auto-save.")
+
+_git_push_github()
