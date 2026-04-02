@@ -2853,10 +2853,10 @@ def _git_push_github():
             return
         subprocess.run(["git", "commit", "-m", msg], cwd=repo_dir, check=True)
         subprocess.run(["git", "push", "origin", "master:main"], cwd=repo_dir, check=True)
-        print(f"✅ GitHub atualizado: {msg}")
+        print(f"[OK] GitHub atualizado: {msg}")
     except subprocess.CalledProcessError as e:
-        print(f"⚠️  Erro ao salvar no GitHub: {e}")
+        print(f"[AVISO] Erro ao salvar no GitHub: {e}")
     except FileNotFoundError:
-        print("⚠️  Git não encontrado no PATH. Instale o Git para habilitar auto-save.")
+        print("[AVISO] Git nao encontrado no PATH. Instale o Git para habilitar auto-save.")
 
 _git_push_github()
