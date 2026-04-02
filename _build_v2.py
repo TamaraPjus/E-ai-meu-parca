@@ -363,6 +363,7 @@ body{font-family:'Inter',sans-serif;background:#F0F4F8;color:var(--ce);line-heig
 .name-suggest-item:hover{background:#f0f6ff}
 .ns-name{font-size:12px;font-weight:600;color:var(--ae);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
 .ns-cat{font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;background:#E2E8F0;color:#7A8599;white-space:nowrap;flex-shrink:0}
+\n/* KANBAN PLANNER */\n.kanban-board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:16px 0}\n.kanban-col{background:#F7F9FC;border-radius:12px;padding:12px;min-height:400px}\n.kanban-col-hd{font-size:11px;font-weight:700;text-transform:uppercase;color:#7A8599;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}\n.col-cnt{background:#E2E8F0;color:#4A5568;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:6px}\n.task-card{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:grab;border-left:4px solid #ccc;transition:box-shadow .15s}\n.task-card:hover{box-shadow:0 3px 10px rgba(0,0,0,.12)}\n.task-card[data-prio="Alta"]{border-left-color:#E05353}\n.task-card[data-prio="Média"]{border-left-color:#F5A623}\n.task-card[data-prio="Baixa"]{border-left-color:#4CAF50}\n.task-card-title{font-size:13px;font-weight:700;color:var(--ae);margin-bottom:4px}\n.task-card-desc{font-size:11px;color:#7A8599;margin-bottom:8px;line-height:1.4}\n.task-card-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:10px;color:#9BA5C0}\n.task-prio-badge{padding:2px 7px;border-radius:10px;font-weight:700;font-size:10px}\n.task-prio-badge.Alta{background:#FED7D7;color:#9B2C2C}\n.task-prio-badge.Média{background:#FEEBC8;color:#7B341E}\n.task-prio-badge.Baixa{background:#C6F6D5;color:#22543D}\n.task-del-btn{background:none;border:none;cursor:pointer;color:#CBD5E0;font-size:14px;padding:0;line-height:1;margin-left:auto}\n.task-del-btn:hover{color:#E05353}\n.kanban-dropzone{min-height:40px}\n.kanban-dropzone.drag-over{background:#EBF8FF;border-radius:8px}\n.planner-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}\n.planner-toolbar input{padding:7px 12px;border:1px solid #dde3ec;border-radius:8px;font-size:13px;min-width:200px}\n.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:10000;display:flex;align-items:center;justify-content:center}\n.modal-box{background:#fff;border-radius:14px;padding:24px;min-width:380px;max-width:500px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.25)}\n.modal-box h3{font-size:16px;font-weight:700;color:var(--ae);margin-bottom:16px}\n.modal-field{margin-bottom:12px}\n.modal-field label{display:block;font-size:11px;font-weight:600;color:#7A8599;text-transform:uppercase;margin-bottom:4px}\n.modal-field input,.modal-field textarea,.modal-field select{width:100%;padding:8px 10px;border:1px solid #dde3ec;border-radius:7px;font-size:13px;box-sizing:border-box;font-family:inherit}\n.modal-field textarea{resize:vertical;min-height:70px}\n.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}\n/* CRM MOCKUP */\n.crm-mock-box{background:linear-gradient(135deg,#F0F4FF,#F7F0FF);border:1px dashed #B0BEE8;border-radius:10px;padding:14px;margin-top:12px}\n.crm-mock-header{font-weight:700;font-size:12px;color:#4A5A8A;margin-bottom:10px;display:flex;align-items:center;gap:6px}\n.crm-badge-tag{background:#6C63FF22;color:#6C63FF;border-radius:20px;padding:2px 8px;font-size:10px;border:1px solid #6C63FF44}\n.crm-mock-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}\n.crm-field{background:#fff;border-radius:6px;padding:8px;text-align:center}\n.crm-field label{display:block;font-size:9px;color:#9BA5C0;font-weight:600;text-transform:uppercase;margin-bottom:4px}\n.crm-field span{font-size:12px;color:#3A4A6A}\n.crm-note{font-size:10px;color:#8A97B8;font-style:italic;text-align:center}\n/* MOTIVOS REPROVACAO */\n.motivos-box{background:#FFF5F5;border:1px solid #FED7D7;border-radius:8px;padding:10px 14px;margin-top:10px}\n.motivos-box h5{font-size:10px;font-weight:700;text-transform:uppercase;color:#9B2C2C;margin-bottom:8px;letter-spacing:.5px}\n.motivo-item{display:flex;align-items:center;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid #FEB2B222}\n.motivo-item:last-child{border-bottom:none}\n.motivo-label{color:#7B341E;flex:1}\n.motivo-cnt{background:#FED7D7;color:#9B2C2C;border-radius:10px;padding:1px 8px;font-size:10px;font-weight:700}\n/* BENCHMARK UF */\n.bench-box{background:#F0FFF4;border:1px solid #C6F6D5;border-radius:8px;padding:10px 14px;margin-top:10px}\n.bench-box h5{font-size:10px;font-weight:700;text-transform:uppercase;color:#276749;margin-bottom:8px;letter-spacing:.5px}\n.bench-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}\n.bench-kpi{background:#fff;border-radius:6px;padding:8px;text-align:center}\n.bench-kpi .bk-label{font-size:9px;color:#7A8599;text-transform:uppercase;font-weight:600;margin-bottom:2px}\n.bench-kpi .bk-value{font-size:16px;font-weight:800;color:var(--ae)}\n.bench-kpi .bk-sub{font-size:10px;color:#7A8599;margin-top:2px}\n.bench-kpi .bk-up{color:#22543D;font-weight:700}\n.bench-kpi .bk-down{color:#9B2C2C;font-weight:700}\n/* SAZONALIDADE PROJETADA */\n.sazon-box{background:#FFFAF0;border:1px solid #FEEBC8;border-radius:8px;padding:10px 14px;margin-top:10px}\n.sazon-box h5{font-size:10px;font-weight:700;text-transform:uppercase;color:#7B341E;margin-bottom:8px;letter-spacing:.5px}\n.sazon-table{width:100%;border-collapse:collapse;font-size:11px}\n.sazon-table th{font-size:9px;text-transform:uppercase;color:#7A8599;font-weight:700;padding:3px 6px;text-align:left}\n.sazon-table td{padding:3px 6px;border-bottom:1px solid #FEEBC822}\n.sazon-table tr:last-child td{border-bottom:none}\n/* CHURN BADGE */\n.churn-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;white-space:nowrap}\n.churn-badge.alto{background:#FED7D7;color:#9B2C2C}\n.churn-badge.medio{background:#FEEBC8;color:#7B341E}\n.churn-badge.baixo{background:#C6F6D5;color:#22543D}\n/* PARCEIROS EM RISCO TABLE */\n.risco-table{width:100%;border-collapse:collapse;font-size:12px}\n.risco-table th{font-size:10px;text-transform:uppercase;color:#7A8599;font-weight:700;padding:6px 8px;text-align:left;border-bottom:2px solid #F0F2F5}\n.risco-table td{padding:6px 8px;border-bottom:1px solid #F7F9FC}\n.risco-table tr:last-child td{border-bottom:none}
 """
 
 # ====================================================================
@@ -386,6 +387,7 @@ HTML_BODY = """
   <div class="tab" data-tab="dados">Lista de Dados <span class="cnt" id="expCnt">0</span></div>
   <div class="tab" data-tab="destaques">Destaques da Semana</div>
   <div class="tab" data-tab="glossario">Glossário</div>
+  <div class="tab" data-tab="planner">&#128203; Planner</div>
 </div>
 
 <!-- VISAO GERAL -->
@@ -473,10 +475,17 @@ HTML_BODY = """
   <!-- BLOCO 7: VISAO POR REGIONAL -->
   <div class="story-block">
     <div class="story-hd"><span class="story-num">7</span><span class="story-label">Visão por Regional</span><span class="story-desc">distribuição geográfica da base</span></div>
-    <div class="chart-row" style="grid-template-columns:1fr 1fr">
-      <div class="chart-box"><h3>Indicadores por Regional</h3><div id="regionalTable"></div></div>
-      <div class="chart-box"><h3>Mapa do Brasil — Concentração por UF</h3><div id="brazilMap" style="display:flex;justify-content:center;align-items:center;min-height:400px"></div></div>
+    <div class="chart-box" style="margin-bottom:16px"><h3>Indicadores por Regional</h3><div id="regionalTable"></div></div>
+    <div class="chart-box" id="brazilMapBox">
+      <h3>Distribuição Geográfica da Carteira</h3>
+      <div id="brazilMap"></div>
     </div>
+  </div>
+
+  <!-- BLOCO 8: PARCEIROS EM RISCO -->
+  <div class="story-block">
+    <div class="story-hd"><span class="story-num" style="background:#E05353">&#x26A0;</span><span class="story-label">Parceiros em Risco de Churn</span><span class="story-desc">top 5 com maior probabilidade de abandono</span></div>
+    <div class="chart-box" id="riscoTable"></div>
   </div>
 
   <!-- HIGHLIGHTS -->
@@ -504,7 +513,7 @@ HTML_BODY = """
   <div class="tw" style="max-height:calc(100vh - 200px);overflow-y:auto">
     <table id="expTable">
       <thead><tr>
-        <th data-col="nome" title="Nome ajustado do parceiro (normalizado para evitar duplicidades)">Nome</th><th data-col="cat" title="Categoria estratégica: Diamante (top), Prata, Bronze (sem compra), Novo, Em Recuperação, Inativo, Fantasma (compra sem lead)">Cat.</th><th data-col="regional" title="Regional do parceiro baseada na UF dos processos">Reg.</th><th data-col="isp" title="Índice de Saúde do Parceiro (0-100). Composição: Recência 25% + Produção 25% + Volume Ajustado 20% + Consistência 15% + Tendência 10% + Valor 5%">ISP</th><th data-col="saude" title="Classificação de saúde baseada no ISP: Excelente (80-100), Bom (60-79), Regular (40-59), Ruim (20-39), Péssimo (0-19)">Saúde</th><th data-col="leads" title="Total de leads enviados pelo parceiro desde o início do registro na base">Leads</th><th data-col="sem4" title="Leads enviados nas últimas 4 semanas (período mais recente)">4Sem</th><th data-col="pagos" title="Total de processos pagos (precatórios comprados) vinculados a este parceiro">Pagos</th><th data-col="ticket" title="Ticket médio = Valor total de compras ÷ Quantidade de pagos. Indica o valor médio por precatório comprado">Ticket</th><th data-col="taxa_conv" title="Taxa de conversão = Pagos ÷ Leads × 100. Indica quantos leads se transformaram em compra efetiva">Conv.</th><th data-col="tend" title="Tendência semanal: compara leads das últimas 4 semanas vs 4 semanas anteriores. Positivo = crescendo, Negativo = caindo">Tend.</th><th data-col="vlr_dist" title="Valor Bruto total dos processos em andamento deste parceiro, excluindo MIDs (CPF ≥ R$10M ou CNPJ ≥ R$5M). Representa o potencial distribuível atual.">VLR a Distribuir</th><th title="Visualização do volume de leads enviados por semana nas últimas 12 semanas. Cada barra = 1 semana, número acima = quantidade de leads">Últimas 12 Semanas</th>
+        <th data-col="nome" title="Nome ajustado do parceiro (normalizado para evitar duplicidades)">Nome</th><th data-col="cat" title="Categoria estratégica: Diamante (top), Prata, Bronze (sem compra), Novo, Em Recuperação, Inativo, Fantasma (compra sem lead)">Cat.</th><th data-col="regional" title="Regional do parceiro baseada na UF dos processos">Reg.</th><th data-col="isp" title="Índice de Saúde do Parceiro (0-100). Composição: Recência 25% + Produção 25% + Volume Ajustado 20% + Consistência 15% + Tendência 10% + Valor 5%">ISP</th><th data-col="saude" title="Classificação de saúde baseada no ISP: Excelente (80-100), Bom (60-79), Regular (40-59), Ruim (20-39), Péssimo (0-19)">Saúde</th><th data-col="leads" title="Total de leads enviados pelo parceiro desde o início do registro na base">Leads</th><th data-col="sem4" title="Leads enviados nas últimas 4 semanas (período mais recente)">4Sem</th><th data-col="pagos" title="Total de processos pagos (precatórios comprados) vinculados a este parceiro">Pagos</th><th data-col="ticket" title="Ticket médio = Valor total de compras ÷ Quantidade de pagos. Indica o valor médio por precatório comprado">Ticket</th><th data-col="taxa_conv" title="Taxa de conversão = Pagos ÷ Leads × 100. Indica quantos leads se transformaram em compra efetiva">Conv.</th><th data-col="tend" title="Tendência semanal: compara leads das últimas 4 semanas vs 4 semanas anteriores. Positivo = crescendo, Negativo = caindo">Tend.</th><th data-col="vlr_dist" title="Valor Bruto total dos processos em andamento deste parceiro, excluindo MIDs (CPF ≥ R$10M ou CNPJ ≥ R$5M). Representa o potencial distribuível atual.">VLR a Distribuir</th><th data-col="churn_score" title="Score de risco de churn (0-100) calculado a partir de tendência, semanas parado, ISP, envio e sazonalidade. Alto ≥ 60, Médio 30-59, Baixo < 30">Risco</th><th title="Visualização do volume de leads enviados por semana nas últimas 12 semanas. Cada barra = 1 semana, número acima = quantidade de leads">Últimas 12 Semanas</th>
       </tr></thead>
       <tbody id="expBody"></tbody>
     </table>
@@ -599,6 +608,56 @@ HTML_BODY = """
 
       <h3 style="margin-top:24px;margin-bottom:10px;font-size:14px">Termos Gerais</h3>
       <div id="glossTermos"></div>
+
+      <h3 style="margin-top:24px;margin-bottom:10px;font-size:14px">Indicadores Preditivos</h3>
+      <div id="glossPreditivos"></div>
+
+      <h3 style="margin-top:24px;margin-bottom:10px;font-size:14px">Métricas Financeiras</h3>
+      <div id="glossFinanceiro"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANNER -->
+<div class="pnl" id="p-planner">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="planner-toolbar">
+      <button class="btn btn-p" onclick="abrirNovaTask()">+ Nova Tarefa</button>
+      <input type="text" id="plannerSearch" placeholder="&#128269; Buscar tarefa..." oninput="renderPlanner()">
+      <span id="plannerCount" style="font-size:12px;color:#7A8599;margin-left:4px"></span>
+      <span style="font-size:11px;color:#B0B0B0;margin-left:8px">&#128274; Dados salvos localmente | Integração PostgreSQL prevista</span>
+    </div>
+    <div class="kanban-board">
+      <div class="kanban-col" id="col-todo" ondragover="onKanbanDragOver(event)" ondrop="onKanbanDrop(event,'todo')">
+        <div class="kanban-col-hd">&#9711; A Fazer <span class="col-cnt" id="cnt-todo">0</span></div>
+        <div class="kanban-dropzone" id="cards-todo"></div>
+      </div>
+      <div class="kanban-col" id="col-doing" ondragover="onKanbanDragOver(event)" ondrop="onKanbanDrop(event,'doing')">
+        <div class="kanban-col-hd">&#9654; Em Andamento <span class="col-cnt" id="cnt-doing">0</span></div>
+        <div class="kanban-dropzone" id="cards-doing"></div>
+      </div>
+      <div class="kanban-col" id="col-done" ondragover="onKanbanDragOver(event)" ondrop="onKanbanDrop(event,'done')">
+        <div class="kanban-col-hd">&#10003; Conclu&#237;do <span class="col-cnt" id="cnt-done">0</span></div>
+        <div class="kanban-dropzone" id="cards-done"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal nova task -->
+  <div id="plannerModal" class="modal-overlay" style="display:none" onclick="fecharModalTask(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3>&#128203; Nova Tarefa</h3>
+      <div class="modal-field"><label>T&#237;tulo *</label><input type="text" id="taskTitulo" placeholder="Descreva a tarefa..."></div>
+      <div class="modal-field"><label>Descri&#231;&#227;o</label><textarea id="taskDesc" placeholder="Detalhes adicionais..."></textarea></div>
+      <div class="modal-field"><label>Respons&#225;vel</label><input type="text" id="taskResp" placeholder="Nome do respons&#225;vel..."></div>
+      <div class="modal-field"><label>Parceiro (opcional)</label><input type="text" id="taskParceiro" placeholder="Nome do parceiro associado..."></div>
+      <div class="modal-field" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><label>Prioridade</label><select id="taskPrio"><option value="Alta">&#x1F534; Alta</option><option value="Média" selected>&#x1F7E1; M&#233;dia</option><option value="Baixa">&#x1F7E2; Baixa</option></select></div>
+        <div><label>Data</label><input type="date" id="taskData"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-o" onclick="document.getElementById(\'plannerModal\').style.display=\'none\'">Cancelar</button>
+        <button class="btn btn-p" onclick="salvarTask()">Salvar Tarefa</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1774,50 +1833,261 @@ function renderRegional(){
   document.getElementById('regionalTable').innerHTML=html;
 }
 
+// ===== CHURN SCORE =====
+function calcChurnScore(p){
+  var score=0;
+  if(p.tend<-20)score+=30;else if(p.tend<-10)score+=20;else if(p.tend<0)score+=10;
+  var sp=p.semanas_parado||0;
+  if(sp>=8)score+=30;else if(sp>=4)score+=20;else if(sp>=2)score+=10;
+  if(p.isp<20)score+=20;else if(p.isp<40)score+=10;
+  if(p.envio_class==='Sem envio')score+=10;else if(p.envio_class==='Regular')score+=5;
+  if(p.is_sazonal&&sp<6)score=Math.max(0,score-10);
+  return Math.min(100,score);
+}
+
+// ===== BENCHMARK UF =====
+function calcBenchmarkUF(p){
+  if(!p.uf||p.uf==='')return null;
+  var peers=D.filter(function(x){return x.uf===p.uf&&x.nome!==p.nome&&x.cat!=='Fantasma'});
+  if(peers.length<2)return null;
+  var ispArr=peers.map(function(x){return x.isp}).filter(function(v){return v>=0}).sort(function(a,b){return a-b});
+  var l4Arr=peers.map(function(x){return x.sem4}).sort(function(a,b){return a-b});
+  var median=function(arr){if(!arr.length)return 0;var m=Math.floor(arr.length/2);return arr.length%2?arr[m]:(arr[m-1]+arr[m])/2};
+  return{
+    isp_med:median(ispArr),l4_med:median(l4Arr),peers_n:peers.length,
+    isp_pct:ispArr.length?ispArr.filter(function(v){return v<=(p.isp>=0?p.isp:0)}).length/ispArr.length*100:50,
+    l4_pct:l4Arr.length?l4Arr.filter(function(v){return v<=p.sem4}).length/l4Arr.length*100:50
+  };
+}
+
+// ===== SAZONALIDADE PROJETADA =====
+function calcSazonProjecao(p){
+  var projs=[];
+  for(var d=1;d<=4;d++){
+    var futSem=semAtual+d;var futAno=anoISOAtual;
+    if(futSem>52){futSem-=52;futAno+=1}
+    var keyAnt=(futAno-1)+'-'+(futSem<10?'0':'')+futSem;
+    var val=(p.semanas||{})[keyAnt];
+    projs.push({sem:futAno+'-'+(futSem<10?'0':'')+futSem,base:(val!==undefined?val:null)});
+  }
+  return projs;
+}
+
+// ===== LERP COLOR (para mapa coroplético) =====
+function lerpColor(a,b,t){
+  var ah=parseInt(a.slice(1),16),bh=parseInt(b.slice(1),16);
+  var ar=(ah>>16)&255,ag=(ah>>8)&255,ab2=ah&255;
+  var br=(bh>>16)&255,bg=(bh>>8)&255,bb2=bh&255;
+  var rr=Math.round(ar+(br-ar)*t),rg=Math.round(ag+(bg-ag)*t),rb3=Math.round(ab2+(bb2-ab2)*t);
+  return'#'+(rr<16?'0':'')+rr.toString(16)+(rg<16?'0':'')+rg.toString(16)+(rb3<16?'0':'')+rb3.toString(16);
+}
+
+// ===== PARCEIROS EM RISCO =====
+// DISTINÇÃO IMPORTANTE:
+// "Inativo" = STATUS ATUAL (retrospectivo): parceiro que já parou há 8+ semanas. Já aconteceu.
+// "Score de Risco de Churn" = PREDIÇÃO (prospectivo): identifica parceiros AINDA ATIVOS com
+// sinais de deterioração que podem se tornar inativos em breve. Inativos e Fantasmas são
+// excluídos daqui — o score serve para AGIR ANTES da inatividade se consolidar.
+function renderRisco(){
+  var candidatos=GF.filter(function(p){return p.cat!=='Inativo'&&p.cat!=='Fantasma'});
+  var lista=candidatos.map(function(p){return{p:p,score:calcChurnScore(p)}})
+    .filter(function(item){return item.score>=25})
+    .sort(function(a,b){return b.score-a.score}).slice(0,5);
+  var el=document.getElementById('riscoTable');
+  if(!el)return;
+  if(!lista.length){
+    el.innerHTML='<div style="display:flex;gap:10px;align-items:flex-start;padding:12px;background:#F0FFF4;border-radius:8px;border-left:3px solid #38a169">'
+      +'<span style="font-size:20px">\uD83D\uDFE2</span>'
+      +'<div style="font-size:12px;color:#276749"><strong>Nenhum parceiro ativo com risco significativo detectado.</strong><br>'
+      +'<span style="font-weight:400;color:#48BB78">Lembre: o Score de Risco monitora parceiros <em>ainda ativos</em> com sinais de deteriora\u00e7\u00e3o. '
+      +'Parceiros Inativos j\u00e1 consolidados s\u00e3o monitorados na Perspectiva da Semana.</span></div>'
+      +'</div>';
+    return;
+  }
+  var h='<div style="font-size:11px;color:#7A8599;margin-bottom:12px;padding:8px 12px;background:#FFFAF0;border-left:3px solid #F6AD55;border-radius:0 6px 6px 0">'
+    +'\u26A0\uFE0F <strong>Score de Risco de Churn</strong> \u2014 monitora parceiros <em>ainda ativos</em> com sinais de deteriora\u00e7\u00e3o. '
+    +'Inativos j\u00e1 consolidados aparecem na Perspectiva da Semana. '
+    +'Score \u2265\u202f60\u202f=\u202finterven\u00e7\u00e3o urgente \u00b7 30\u201359\u202f=\u202faten\u00e7\u00e3o redobrada.'
+    +'</div>';
+  h+='<table class="risco-table"><thead><tr>'
+    +'<th>Parceiro</th><th>Categoria</th><th>ISP</th><th>Sem. Parado</th><th>Tend.</th><th>Score de Risco</th>'
+    +'</tr></thead><tbody>';
+  lista.forEach(function(item){
+    var p=item.p,s=item.score;
+    var cls=s>=60?'alto':s>=30?'medio':'baixo';
+    var icon=s>=60?'\uD83D\uDD34':s>=30?'\uD83D\uDFE1':'\uD83D\uDFE2';
+    h+='<tr>'
+      +'<td><strong>'+p.nome+'</strong></td>'
+      +'<td>'+catBd(p.cat)+'</td>'
+      +'<td>'+(p.isp>=0?p.isp:'--')+'</td>'
+      +'<td>'+(p.semanas_parado||0)+'</td>'
+      +'<td>'+tA(p.tend)+'</td>'
+      +'<td><span class="churn-badge '+cls+'">'+icon+' '+s+'/100</span></td>'
+      +'</tr>';
+  });
+  h+='</tbody></table>';
+  el.innerHTML=h;
+}
+
 // ===== BRAZIL MAP =====
 var BP={"AC":"M14,688L23,705L46,726L84,797L80,811L76,815L73,828L69,827L68,838L65,844L56,837L51,837L47,843L45,837L44,840L44,793L45,777L38,799L28,800L28,792L26,780L18,776L21,760L17,745L17,739L15,734L12,716L13,711L10,702L10,694L13,692L12,684L14,688Z","AL":"M395,753L398,757L386,820L380,799L368,773L372,754L380,775L381,771L384,774L388,767L389,757L395,753Z M397,766L397,766Z","AM":"M77,319L79,331L79,353L81,351L87,370L94,360L95,374L97,363L98,363L99,354L102,347L103,351L106,339L107,345L109,335L110,321L116,312L119,313L120,319L123,322L122,336L126,361L125,380L128,413L127,426L125,430L130,445L131,456L135,463L134,456L134,437L135,427L138,420L141,422L143,436L147,429L146,420L150,389L161,389L161,414L167,446L168,449L170,444L170,456L176,469L178,469L180,476L183,481L183,488L189,481L185,497L167,659L165,668L169,694L166,714L167,725L166,751L134,752L133,747L130,755L122,719L114,719L112,733L111,733L111,743L109,749L109,758L102,760L99,777L98,770L96,773L96,779L94,777L92,783L90,777L86,776L85,785L82,793L46,726L23,705L12,684L14,670L19,660L18,641L20,626L22,604L31,581L41,575L43,565L47,566L48,575L50,572L56,445L54,430L54,420L49,407L50,378L55,371L56,375L59,374L57,357L52,357L52,331L68,331L67,327L68,322L71,327L76,310L77,319Z","AP":"M238,240L243,314L246,312L248,328L251,332L251,352L249,372L246,375L243,393L238,405L233,431L233,443L229,449L226,442L225,424L224,423L223,412L221,406L218,385L219,373L216,363L216,350L209,340L207,330L203,329L201,303L203,302L206,312L210,311L212,305L215,310L217,306L217,313L221,313L224,299L227,273L234,238L235,223L238,240Z","BA":"M357,743L358,748L362,752L363,759L364,753L365,760L367,761L368,777L370,780L370,797L372,800L373,813L371,817L372,828L368,828L368,837L372,861L377,858L370,905L367,918L364,917L360,931L361,946L360,950L361,958L359,988L361,1034L358,1087L359,1108L354,1124L353,1134L348,1119L348,1109L344,1096L345,1075L347,1076L347,1063L348,1063L351,1045L348,1032L344,1032L342,1026L337,1030L336,1020L332,1004L329,1007L318,986L315,993L311,986L312,974L308,969L289,1011L290,999L290,977L291,974L287,964L288,944L288,937L290,931L287,932L287,924L289,917L287,918L287,903L288,899L286,893L286,882L288,876L286,875L287,865L289,865L285,861L284,852L288,826L292,817L294,804L298,833L301,837L304,825L307,822L309,825L313,800L312,782L315,771L317,777L320,776L322,785L328,772L332,770L336,748L339,748L343,766L342,778L344,779L347,774L347,762L350,762L351,753L353,751L353,746L357,743Z M354,1124L354,1124Z","CE":"M350,513L365,548L370,570L377,593L374,597L368,638L364,651L364,671L362,680L365,692L360,714L359,714L353,692L345,696L346,672L343,666L341,642L341,607L338,595L339,567L339,562L337,561L338,548L336,535L337,524L337,517L345,511L350,513Z M350,513L350,513Z","DF":"M277,1041L267,1042L268,1020L276,1020L277,1024L277,1041Z","ES":"M343,1234L340,1252L333,1245L333,1235L331,1230L331,1215L332,1208L336,1208L338,1187L341,1179L340,1159L338,1154L341,1153L338,1132L339,1127L342,1126L341,1119L343,1121L345,1116L353,1133L353,1172L352,1186L349,1198L346,1225L343,1234Z M345,1226L345,1226Z M345,1227L345,1227Z M345,1226L345,1226Z M343,1234L343,1234Z","GO":"M248,896L247,914L256,931L259,912L260,918L262,912L264,922L264,933L265,925L266,932L268,926L268,932L272,932L273,939L274,924L276,932L282,919L285,919L286,913L286,920L289,917L287,924L287,934L290,931L288,937L288,944L287,964L291,974L290,977L289,997L287,997L285,988L285,1002L281,1002L282,1013L281,1022L282,1035L277,1041L277,1024L276,1020L268,1020L267,1042L277,1042L275,1060L279,1079L275,1098L277,1104L276,1113L277,1122L270,1140L267,1133L261,1132L256,1146L255,1140L247,1148L245,1164L242,1172L242,1180L226,1148L221,1146L220,1142L222,1134L219,1132L219,1119L218,1101L220,1074L224,1061L223,1052L227,1036L231,1033L235,1003L239,997L242,964L241,949L244,932L245,908L248,896Z","MA":"M280,759L282,736L285,733L285,723L284,716L280,722L274,698L275,692L273,688L275,679L276,651L275,621L271,610L266,607L262,614L274,582L279,554L280,543L284,514L283,508L286,501L286,490L287,486L288,473L287,471L288,467L288,449L290,442L291,450L292,442L291,451L293,446L293,456L294,450L295,456L296,452L296,462L297,453L296,469L299,454L299,461L302,457L301,465L304,465L302,473L304,470L304,474L305,474L304,476L305,478L307,500L310,496L309,499L310,499L310,503L314,489L315,495L318,495L325,508L332,509L332,519L331,527L328,537L325,538L320,569L321,579L321,592L322,607L319,625L319,642L322,653L321,667L316,674L313,668L310,670L303,696L295,707L292,744L290,757L292,779L291,810L286,807L284,789L284,779L282,776L280,759Z M302,472L302,472Z M304,477L304,477Z M293,455L293,455Z M291,447L291,447Z M292,452L292,452Z M303,473L303,473Z M296,468L296,468Z M302,465L302,465Z M299,462L299,462Z M292,450L292,450Z M294,453L294,453Z M292,453L292,453Z M302,473L302,473Z M296,457L296,457Z M291,450L291,450Z M294,454L294,454Z M296,463L296,463Z M300,454L302,453L300,454Z M301,454L301,454Z M301,453L301,453Z M293,452L294,445L293,452Z M293,452L293,452Z M302,461L302,461Z M302,461L302,461Z M293,448L293,448Z M295,448L295,448Z M304,472L304,472Z M303,462L303,462Z M292,445L292,445Z M292,448L292,448Z M294,453L294,453Z M299,457L299,457Z M299,459L299,459Z M300,456L300,456Z M303,468L303,468Z M293,452L293,452Z M305,483L305,483Z M305,484L305,484Z M296,456L296,456Z M299,458L299,458Z M303,466L303,466Z M306,481L306,481Z M304,472L304,472Z M299,457L299,457Z M295,456L295,456Z M300,453L300,453Z M292,450L292,450Z M300,456L300,456Z M304,473L304,473Z M294,453L294,453Z M302,462L302,462Z M294,450L294,450Z M322,502L322,502Z M310,496L310,496Z M304,471L304,471Z M294,452L294,452Z M293,454L293,454Z M294,450L294,450Z M310,496L310,496Z M299,459L299,459Z M302,463L302,463Z M301,454L301,454Z M300,456L300,456Z M299,460L299,460Z M305,485L305,485Z M292,450L292,450Z M280,759L280,759Z M299,456L299,456Z M299,456L299,456Z M294,450L294,450Z M302,464L302,464Z M292,448L292,448Z","MG":"M308,970L312,974L311,986L315,993L318,986L329,1007L332,1004L336,1020L337,1030L343,1027L344,1032L348,1032L351,1045L348,1063L347,1063L347,1076L345,1075L344,1082L344,1096L348,1109L348,1119L345,1116L343,1121L341,1119L342,1126L339,1127L338,1132L341,1153L338,1154L340,1159L341,1178L338,1187L336,1208L332,1208L332,1213L332,1226L330,1237L328,1239L329,1241L326,1265L327,1269L319,1284L312,1282L296,1306L293,1303L292,1314L287,1316L287,1310L285,1308L286,1302L283,1292L284,1285L283,1283L284,1280L283,1273L285,1259L283,1254L280,1257L278,1235L279,1226L277,1218L277,1207L275,1199L271,1200L271,1205L268,1201L268,1206L262,1206L261,1218L260,1207L258,1212L257,1199L254,1196L251,1198L245,1191L240,1203L240,1179L242,1179L242,1172L245,1164L247,1148L255,1140L256,1146L261,1132L267,1133L270,1140L277,1122L276,1113L277,1104L275,1096L279,1079L275,1060L277,1041L282,1035L281,1022L282,1013L281,1002L285,1002L284,991L285,988L287,997L290,996L289,1010L304,974L308,970Z","MS":"M211,1117L219,1122L219,1134L222,1134L220,1142L221,1146L225,1146L230,1159L239,1173L241,1182L240,1189L240,1204L234,1225L234,1237L231,1245L231,1254L229,1261L229,1269L226,1286L214,1318L213,1333L210,1338L209,1359L207,1363L203,1352L197,1360L195,1345L194,1306L192,1291L188,1291L186,1283L182,1292L170,1284L172,1238L171,1236L171,1230L170,1228L168,1207L171,1199L169,1190L173,1160L172,1156L174,1130L175,1129L172,1102L175,1116L180,1109L183,1092L186,1093L189,1087L199,1106L204,1099L207,1106L209,1105L213,1089L213,1106L211,1110L211,1117Z M211,1117L211,1117Z","MT":"M146,932L149,916L149,905L152,894L149,874L149,864L151,856L150,845L147,844L145,840L135,839L135,817L134,806L135,785L134,771L135,770L135,757L134,752L166,752L167,725L166,714L169,694L174,729L174,750L178,757L182,776L248,794L244,826L243,857L244,897L243,904L245,915L241,949L242,964L239,997L235,1003L231,1033L227,1036L223,1052L224,1062L220,1074L218,1092L218,1108L219,1122L211,1117L211,1108L213,1106L213,1089L209,1105L207,1106L204,1099L199,1106L189,1087L186,1093L183,1092L180,1109L175,1116L173,1101L170,1100L166,1087L165,1068L167,1051L148,1051L148,1019L144,1004L148,1004L147,985L145,968L146,959L145,952L143,947L146,938L146,932Z M146,932L146,932Z","PA":"M280,429L280,434L282,429L283,437L284,432L283,439L286,434L286,443L286,439L287,443L288,436L287,447L288,440L288,446L289,441L288,467L287,471L288,473L287,486L286,490L286,501L283,508L284,514L280,543L279,554L274,581L262,614L266,616L269,624L267,630L268,638L266,647L266,655L264,658L263,666L258,677L258,689L256,702L258,712L258,728L254,754L250,772L248,794L182,776L178,757L174,750L174,729L165,668L167,659L185,497L189,481L183,488L183,481L180,476L178,469L176,469L170,456L170,444L168,449L166,441L161,414L161,351L165,349L165,341L167,336L170,340L170,334L175,332L177,320L179,319L182,326L185,322L190,326L191,318L189,309L190,299L196,303L200,297L202,312L203,329L207,330L209,340L216,350L216,363L219,373L218,385L221,406L223,412L224,423L225,424L226,442L229,449L233,443L233,431L238,405L243,393L246,376L248,372L249,386L253,385L256,399L261,409L266,410L265,420L270,428L271,422L272,427L273,421L275,431L276,424L278,427L278,431L279,426L279,432L280,429Z M286,438L286,438Z M289,443L289,443Z M280,428L280,428Z M286,440L286,440Z M272,426L272,426Z M286,440L286,440Z M287,438L287,438Z M284,433L284,433Z M284,434L284,434Z M280,429L280,429Z M285,439L285,439Z M288,438L288,438Z M280,430L280,430Z M280,429L280,429Z M287,437L287,437Z","PB":"M378,641L378,646L376,654L375,668L377,668L378,673L382,669L383,679L385,673L385,664L386,665L385,658L386,652L390,660L400,659L402,686L402,702L399,696L395,698L395,706L386,713L384,724L380,732L378,718L376,719L378,711L378,703L380,699L378,691L369,713L367,713L366,707L364,710L363,704L365,692L362,680L364,671L365,656L364,656L365,653L369,661L373,648L378,641Z M401,679L401,679Z","PE":"M378,692L380,699L378,703L378,711L376,719L378,718L380,732L384,724L386,713L395,706L395,698L399,696L402,702L402,720L398,757L391,754L389,758L388,767L384,774L381,771L380,775L372,754L368,773L367,761L365,760L365,754L364,759L362,752L358,748L356,741L351,753L350,762L347,762L347,774L344,779L342,778L343,766L341,753L336,748L344,726L345,713L343,710L343,699L345,696L353,692L359,714L363,705L364,710L366,707L367,713L369,713L375,695L378,692Z M426,554L426,554Z M426,553L426,553Z","PI":"M333,512L337,520L336,535L338,548L337,561L339,562L339,567L338,595L341,607L341,642L343,666L346,672L345,696L343,699L343,710L345,713L344,726L336,748L332,770L328,772L322,785L320,776L317,777L315,771L312,782L313,800L309,825L307,822L304,825L301,837L298,833L296,825L296,818L294,805L292,811L290,809L292,779L290,757L292,744L295,710L297,703L303,696L309,671L313,668L316,674L321,667L322,653L319,642L319,625L322,607L321,592L321,579L320,569L325,538L328,537L332,521L332,511L333,512Z","PR":"M229,1301L237,1307L243,1318L250,1316L253,1324L254,1337L254,1354L258,1374L257,1387L264,1387L264,1403L267,1399L268,1408L270,1409L264,1439L258,1440L254,1449L251,1440L247,1445L244,1440L243,1450L238,1453L238,1465L236,1469L235,1463L231,1464L228,1458L214,1452L212,1439L211,1425L209,1425L209,1420L206,1428L204,1424L207,1374L207,1365L209,1358L210,1338L213,1333L214,1318L220,1303L228,1307L229,1301Z","RJ":"M305,1332L303,1335L301,1330L302,1320L307,1313L308,1307L304,1304L302,1295L312,1282L319,1284L327,1269L326,1265L329,1241L328,1239L331,1231L333,1235L333,1245L340,1252L339,1261L340,1280L330,1301L330,1309L331,1310L330,1320L319,1319L319,1307L317,1311L318,1318L317,1321L313,1322L314,1322L311,1316L308,1322L306,1321L307,1317L303,1322L303,1329L305,1332Z M316,1320L316,1320Z M308,1324L309,1327L307,1329L308,1324Z M312,1322L310,1323L312,1322Z M318,1311L317,1312L318,1311Z M311,1318L311,1318Z M318,1314L318,1314Z M311,1320L311,1320Z M304,1328L304,1328Z M310,1320L310,1320Z M303,1327L303,1327Z M333,1296L333,1296Z M305,1332L305,1332Z M319,1310L319,1310Z M319,1310L319,1310Z M318,1316L318,1316Z M304,1323L304,1323Z M311,1318L311,1318Z M333,1296L333,1296Z M304,1328L304,1328Z M304,1327L304,1327Z M311,1319L311,1319Z M304,1329L304,1329Z M331,1311L331,1311Z M309,1321L309,1321Z M311,1318L311,1318Z M315,1323L315,1323Z M319,1322L319,1322Z M304,1329L304,1329Z M311,1321L311,1321Z M303,1329L303,1329Z M310,1320L310,1320Z M318,1322L318,1322Z M303,1324L303,1324Z M310,1321L310,1321Z M311,1318L311,1318Z M303,1324L303,1324Z","RN":"M378,597L383,604L390,602L395,606L397,619L400,660L390,660L386,652L385,658L386,665L385,664L385,673L383,679L382,669L378,673L377,668L375,668L378,642L373,648L369,661L364,654L366,643L369,635L374,597L377,593L378,597Z","RO":"M85,795L82,793L85,785L86,776L90,777L92,783L94,777L96,779L96,773L98,770L99,777L102,760L109,758L109,750L111,743L111,733L112,733L114,719L121,719L125,735L126,736L127,744L128,744L129,752L131,755L133,747L135,757L135,770L134,771L135,785L134,806L135,817L135,839L145,840L147,844L150,845L151,856L149,864L149,874L152,894L149,905L149,915L147,923L146,938L143,948L140,939L132,942L128,925L122,920L118,905L117,907L112,897L107,900L103,883L102,886L102,880L100,880L99,868L97,868L98,861L96,850L97,839L96,819L97,809L96,788L94,794L92,789L85,795Z M85,795L85,795Z","RR":"M151,274L150,293L151,305L153,309L152,326L157,344L161,350L161,389L150,389L146,420L147,428L145,435L142,434L141,422L139,420L136,425L134,452L135,463L131,456L130,445L125,430L127,426L128,413L125,380L125,357L122,336L123,322L116,312L116,303L113,305L109,300L110,289L108,275L108,258L102,230L104,236L108,235L110,245L113,244L113,239L115,246L116,241L118,242L118,247L120,256L123,252L123,239L124,239L126,233L131,236L134,230L137,219L140,219L144,203L143,191L148,189L150,201L148,220L153,225L153,233L155,242L151,257L152,266L151,274Z","RS":"M230,1663L227,1674L229,1681L229,1686L227,1694L224,1725L216,1750L215,1745L216,1726L217,1724L219,1712L220,1709L221,1716L222,1714L224,1701L223,1693L224,1686L222,1691L223,1695L219,1706L216,1703L214,1695L213,1683L209,1677L204,1658L198,1650L194,1633L190,1643L190,1631L182,1604L179,1603L178,1612L174,1608L180,1586L184,1565L186,1563L191,1534L193,1537L192,1530L200,1514L199,1511L201,1511L202,1501L207,1498L208,1490L211,1485L214,1489L216,1484L217,1489L220,1483L220,1489L228,1491L231,1501L234,1500L239,1513L244,1536L252,1538L253,1545L251,1549L250,1563L248,1570L250,1574L249,1570L251,1568L253,1573L242,1644L229,1686L229,1673L231,1675L236,1665L236,1659L238,1658L238,1643L240,1642L240,1636L243,1630L243,1614L244,1619L244,1608L241,1617L238,1607L237,1600L237,1612L239,1615L237,1619L237,1630L236,1626L236,1643L234,1646L234,1651L231,1652L230,1668L230,1663Z M237,1630L237,1630Z M249,1569L249,1569Z M239,1619L239,1619Z M250,1563L250,1563Z M237,1602L237,1602Z M229,1672L229,1672Z M216,1725L216,1725Z M250,1565L250,1565Z M235,1662L235,1662Z M238,1611L238,1611Z M239,1610L239,1610Z M230,1663L230,1663Z M238,1609L238,1609Z","SC":"M213,1462L214,1450L217,1450L219,1456L223,1454L231,1464L235,1463L236,1469L238,1465L238,1453L243,1450L244,1440L247,1445L251,1440L254,1449L258,1440L264,1438L265,1449L263,1469L264,1471L264,1485L265,1486L264,1490L265,1493L264,1499L264,1516L263,1540L253,1573L250,1568L249,1570L249,1574L248,1568L250,1565L251,1549L253,1545L252,1538L244,1536L239,1513L234,1500L231,1501L228,1491L220,1489L220,1483L217,1489L216,1484L215,1488L212,1487L213,1478L213,1462Z M266,1496L264,1513L265,1498L266,1496Z M264,1499L264,1499Z","SE":"M370,781L380,799L386,820L381,830L375,862L370,856L370,848L368,835L368,828L372,828L371,817L373,813L372,800L370,797L370,781Z","SP":"M289,1354L288,1360L286,1359L281,1371L272,1399L269,1412L270,1409L268,1408L267,1399L264,1402L265,1390L264,1387L257,1387L258,1374L254,1354L254,1337L253,1327L250,1316L243,1318L237,1307L233,1307L229,1301L228,1307L219,1304L226,1286L229,1269L229,1261L231,1254L231,1245L234,1237L234,1225L244,1193L257,1198L258,1211L260,1207L261,1218L262,1206L268,1206L268,1201L271,1205L271,1200L275,1198L278,1209L277,1218L279,1226L278,1235L280,1257L283,1254L285,1259L283,1273L284,1280L283,1283L284,1285L283,1292L286,1302L285,1308L287,1310L286,1316L292,1314L293,1303L296,1306L302,1296L304,1304L308,1307L307,1313L302,1319L301,1329L303,1335L301,1333L296,1345L296,1353L292,1350L289,1354Z M297,1357L295,1356L297,1349L298,1358L297,1357Z M299,1341L299,1341Z M299,1352L299,1352Z M298,1343L298,1343Z M300,1350L300,1350Z M292,1355L292,1355Z M297,1344L297,1344Z M300,1350L300,1350Z M293,1352L293,1352Z M295,1354L295,1354Z M281,1376L281,1376Z M281,1375L281,1375Z M300,1342L300,1342Z M301,1336L301,1336Z M301,1335L301,1335Z M280,1375L280,1375Z M271,1407L271,1407Z M298,1353L298,1353Z M297,1357L297,1357Z M293,1352L293,1352Z M297,1354L297,1354Z M297,1357L297,1357Z M298,1353L298,1353Z M293,1352L293,1352Z","TO":"M280,759L282,776L284,779L284,789L286,807L292,811L293,807L292,817L288,826L284,852L285,861L289,865L287,865L286,875L288,876L286,882L286,893L288,899L287,903L287,918L289,917L286,920L286,913L285,919L282,919L276,932L274,924L273,939L272,932L268,932L268,926L266,932L265,925L264,933L264,922L261,912L260,918L259,912L258,915L256,931L247,914L249,896L246,902L245,914L244,913L243,858L244,826L250,772L257,735L258,712L256,702L258,689L258,677L263,666L265,654L266,655L266,647L268,638L267,630L269,625L266,616L263,615L265,608L271,610L275,621L276,651L275,679L273,688L275,692L274,698L280,722L284,716L285,720L285,731L282,736L280,759Z",};
 var BC={"AC":[46,794],"AL":[385,776],"AM":[93,503],"AP":[225,319],"BA":[331,928],"CE":[354,607],"DF":[274,1033],"ES":[341,1193],"GO":[259,1032],"MA":[296,560],"MG":[302,1138],"MS":[196,1213],"MT":[185,979],"PA":[230,438],"PB":[380,685],"PE":[373,729],"PI":[319,685],"PR":[238,1404],"RJ":[316,1302],"RN":[383,639],"RO":[119,851],"RR":[136,284],"RS":[218,1608],"SC":[244,1492],"SE":[374,827],"SP":[276,1316],"TO":[270,817],};
 
 function renderBrazilMap(){
   var gf=GF;
-  var ufCounts={};
+  // Acumular dados por UF
+  var ufData={};
   gf.forEach(function(p){
     var u=(p.uf||'').toUpperCase().trim();
-    if(u)ufCounts[u]=(ufCounts[u]||0)+1;
+    if(!u)return;
+    if(!ufData[u])ufData[u]={count:0,diamantes:0,ouro:0,prata:0,isp_sum:0,isp_cnt:0};
+    ufData[u].count++;
+    if(p.cat==='Diamante')ufData[u].diamantes++;
+    else if(p.cat==='Ouro')ufData[u].ouro++;
+    else if(p.cat==='Prata'||p.cat==='Bronze')ufData[u].prata++;
+    if(p.isp>=0){ufData[u].isp_sum+=p.isp;ufData[u].isp_cnt++}
   });
-  var maxCount=Math.max.apply(null,Object.values(ufCounts).concat([1]));
-  var hasData=Object.keys(ufCounts).length>0;
+  var hasData=Object.keys(ufData).length>0;
+  var maxCount=hasData?Math.max.apply(null,Object.values(ufData).map(function(v){return v.count})):1;
+  var totalParceiros=gf.length||1;
+  var totalDiamantes=gf.filter(function(p){return p.cat==='Diamante'}).length||1;
 
-  var svg='<svg viewBox="0 180 440 1500" width="100%" style="font-family:Inter,sans-serif" preserveAspectRatio="xMidYMid meet">';
+  // ── INSIGHTS ESTRATÉGICOS ──────────────────────────────────────
+  var insights=[];
+  if(hasData){
+    // 1: estado com mais Diamantes
+    var ufArr=Object.entries(ufData);
+    var topDia=ufArr.slice().sort(function(a,b){return b[1].diamantes-a[1].diamantes})[0];
+    if(topDia&&topDia[1].diamantes>0){
+      var pDia=Math.round(topDia[1].diamantes/totalDiamantes*100);
+      insights.push({icon:'\uD83C\uDFC6',text:'<strong>'+topDia[0]+'</strong> lidera com <strong>'+topDia[1].diamantes+' parceiros Diamante</strong> \u2014 '+pDia+'% do total Diamante da carteira',bg:'#FFFBEB',border:'#F6AD55',color:'#7B341E'});
+    }
+    // 2: concentração top 3 estados
+    var top3=ufArr.slice().sort(function(a,b){return b[1].count-a[1].count}).slice(0,3);
+    var sum3=top3.reduce(function(s,e){return s+e[1].count},0);
+    var pct3=Math.round(sum3/totalParceiros*100);
+    if(top3.length>=2){
+      insights.push({icon:'\uD83D\uDCCD',text:top3.map(function(e){return '<strong>'+e[0]+'</strong>'}).join(', ')+' concentram <strong>'+pct3+'%</strong> da carteira \u2014 '+sum3+' de '+totalParceiros+' parceiros',bg:'#EBF8FF',border:'#63B3ED',color:'#1A365D'});
+    }
+    // 3: estado com melhor ISP médio (min 3 parceiros)
+    var topISP=ufArr.filter(function(e){return e[1].isp_cnt>=3}).sort(function(a,b){return(b[1].isp_sum/b[1].isp_cnt)-(a[1].isp_sum/a[1].isp_cnt)})[0];
+    if(topISP){
+      var ispM=Math.round(topISP[1].isp_sum/topISP[1].isp_cnt);
+      insights.push({icon:'\u2B50',text:'<strong>'+topISP[0]+'</strong> tem o maior ISP m\u00e9dio da base: <strong>'+ispM+' pts</strong> ('+topISP[1].isp_cnt+' parceiros avaliados)',bg:'#F0FFF4',border:'#68D391',color:'#276749'});
+    }
+  }
+
+  var el=document.getElementById('brazilMap');
+  var html='';
+
+  // ── PILLS DE INSIGHTS ─────────────────────────────────────────
+  if(insights.length){
+    html+='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:18px">';
+    insights.forEach(function(ins){
+      html+='<div style="background:'+ins.bg+';border:1px solid '+ins.border+';border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start">'
+           +'<span style="font-size:20px;flex-shrink:0;line-height:1.2">'+ins.icon+'</span>'
+           +'<span style="font-size:11px;color:'+ins.color+';line-height:1.6">'+ins.text+'</span>'
+           +'</div>';
+    });
+    html+='</div>';
+  }
+
+  // ── LAYOUT PRINCIPAL: MAPA (largo) | LEGENDA (estreita) ─────
+  html+='<div style="display:grid;grid-template-columns:3fr 1fr;gap:20px;align-items:start">';
+
+  // ── MAPA SVG ─────────────────────────────────────────────────
   var ufs=['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR','RS','SC','SE','SP','TO'];
+  var svg='<svg viewBox="0 0 440 1700" width="100%" style="font-family:Inter,sans-serif;display:block" preserveAspectRatio="xMidYMid meet">';
   ufs.forEach(function(uf){
     if(!BP[uf])return;
-    var reg=getRegional(uf);
-    var col=REG_COLORS[reg]||'#E8EDF2';
-    var cnt=ufCounts[uf]||0;
-    var opacity=hasData?(cnt>0?'0.9':'0.4'):'0.6';
-    svg+='<path id="uf-'+uf+'" d="'+BP[uf]+'" fill="'+col+'" opacity="'+opacity+'" stroke="#fff" stroke-width="1.5" style="cursor:pointer"><title>'+uf+': '+(cnt||0)+' parceiros ('+reg+')</title></path>';
+    var d=ufData[uf]||{count:0,diamantes:0};
+    var cnt=d.count;
+    var fill;
+    if(!hasData)fill='#D0D8E8';
+    else if(cnt===0)fill='#EEF2F8';
+    else{var t=Math.pow(cnt/maxCount,0.55);fill=lerpColor('#9EC8F0','#0E2F5D',t)}
+    svg+='<path d="'+BP[uf]+'" fill="'+fill+'" stroke="#fff" stroke-width="1.5"><title>'+uf+': '+cnt+' parceiro(s)'+(d.diamantes?' | \u2605 '+d.diamantes+' Diamante(s)':'')+'</title></path>';
+    // Label: sigla SEMPRE visível + contagem abaixo quando tem dados
+    if(BC[uf]){
+      var cx=BC[uf][0],cy=BC[uf][1];
+      var darkFill=(cnt/maxCount)>0.38;
+      var txtC=darkFill?'#ffffff':(cnt===0?'#9BA5C0':'#0E2F5D');
+      // Sigla em destaque
+      svg+='<text x="'+cx+'" y="'+(cy-(cnt>0?4:0))+'" text-anchor="middle" dominant-baseline="middle"'
+          +' font-size="10" font-weight="700" fill="'+txtC+'" pointer-events="none" letter-spacing="0.5">'+uf+'</text>';
+      // Contagem menor abaixo da sigla
+      if(cnt>0)
+        svg+='<text x="'+cx+'" y="'+(cy+8)+'" text-anchor="middle" dominant-baseline="middle"'
+            +' font-size="8" font-weight="400" fill="'+txtC+'" opacity="0.9" pointer-events="none">'+cnt+'</text>';
+      // Estrela Diamante no canto superior do estado
+      if(d.diamantes>0)
+        svg+='<text x="'+(cx+12)+'" y="'+(cy-10)+'" text-anchor="middle"'
+            +' font-size="9" fill="#FFD700" pointer-events="none">\u2605</text>';
+    }
   });
-  if(hasData){
-    Object.keys(ufCounts).forEach(function(uf){
-      if(!BC[uf])return;
-      var cnt=ufCounts[uf];
-      var r=Math.max(8,Math.min(30,Math.round(6+cnt/maxCount*24)));
-      var cx=BC[uf][0];var cy=BC[uf][1];
-      svg+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#fff" opacity="0.85" stroke="'+REG_COLORS[getRegional(uf)]+'" stroke-width="2"/>';
-      svg+='<text x="'+cx+'" y="'+(cy+1)+'" text-anchor="middle" dominant-baseline="middle" font-size="'+(r>12?'9':'7')+'" font-weight="700" fill="#0E2F5D">'+cnt+'</text>';
-    });
-  } else {
-    svg+='<text x="220" y="900" text-anchor="middle" font-size="14" fill="#7A8599" font-style="italic">Dados de UF serão populados na próxima execução.</text>';
-  }
   svg+='</svg>';
-  var legend='<div style="display:flex;gap:16px;justify-content:center;margin-top:8px;flex-wrap:wrap">';
-  REG_LIST.forEach(function(reg){
-    if(reg==='N/I')return;
-    legend+='<div style="display:flex;align-items:center;gap:4px;font-size:10px;color:#7A8599"><div style="width:12px;height:12px;border-radius:3px;background:'+(REG_COLORS[reg]||'#B0B0B0')+'"></div>'+reg+'</div>';
-  });
-  legend+='</div>';
-  document.getElementById('brazilMap').innerHTML=svg+legend;
+  html+='<div>'+svg+'</div>';
+
+  // ── LEGENDA LATERAL ───────────────────────────────────────────
+  html+='<div style="position:sticky;top:80px">';
+  html+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#7A8599;margin-bottom:14px">Legenda</div>';
+
+  // Bloco gradiente com escala
+  html+='<div style="display:flex;gap:10px;align-items:stretch;margin-bottom:16px">';
+  // Barra gradiente vertical SVG
+  html+='<svg width="20" height="180" style="flex-shrink:0">'
+       +'<defs><linearGradient id="mapLgrd" x1="0" y1="0" x2="0" y2="1">'
+       +'<stop offset="0%" stop-color="#0E2F5D"/>'
+       +'<stop offset="100%" stop-color="#EEF2F8"/>'
+       +'</linearGradient></defs>'
+       +'<rect width="20" height="180" fill="url(#mapLgrd)" rx="4"/>'
+       +'</svg>';
+  // Labels de escala
+  html+='<div style="display:flex;flex-direction:column;justify-content:space-between;height:180px;font-size:10px;color:#7A8599">';
+  var scaleLabels=['M\u00e1x ('+maxCount+')','75%','50%','25%','1'];
+  scaleLabels.forEach(function(l){html+='<span style="white-space:nowrap">'+l+'</span>'});
+  html+='</div>';
+  html+='</div>';
+
+  // Item: sem dados
+  html+='<div style="display:flex;align-items:center;gap:7px;margin-bottom:14px;font-size:10px;color:#9BA5C0">'
+       +'<div style="width:20px;height:12px;border-radius:3px;background:#EEF2F8;border:1px solid #dde3ec;flex-shrink:0"></div>'
+       +'<span>Sem parceiros</span>'
+       +'</div>';
+
+  // Item: Diamante
+  html+='<div style="display:flex;align-items:center;gap:7px;margin-bottom:20px;font-size:10px;color:#7A8599">'
+       +'<span style="font-size:14px;color:#FFD700;line-height:1">\u2605</span>'
+       +'<span>Estado com parceiro(s) Diamante</span>'
+       +'</div>';
+
+  // Separador
+  html+='<div style="border-top:1px solid #F0F2F5;margin-bottom:14px"></div>';
+
+  // Top 5 estados
+  html+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#7A8599;margin-bottom:10px">Top Estados</div>';
+  var top5=Object.entries(ufData).sort(function(a,b){return b[1].count-a[1].count}).slice(0,7);
+  if(top5.length){
+    top5.forEach(function(entry,idx){
+      var uf=entry[0],d=entry[1];
+      var pct=Math.round(d.count/totalParceiros*100);
+      var barPct=Math.round(d.count/top5[0][1].count*100);
+      html+='<div style="margin-bottom:7px">';
+      html+='<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:11px;margin-bottom:3px">';
+      html+='<span style="font-weight:700;color:var(--ae)">'+uf+'</span>';
+      html+='<span style="color:#7A8599">'+d.count+' <span style="font-size:9px;color:#A0AEC0">('+pct+'%)</span></span>';
+      html+='</div>';
+      html+='<div style="height:5px;background:#F0F2F5;border-radius:3px;overflow:hidden">';
+      html+='<div style="width:'+barPct+'%;height:100%;background:#0E2F5D;border-radius:3px;opacity:'+(0.4+0.6*barPct/100).toFixed(2)+'"></div>';
+      html+='</div>';
+      if(d.diamantes>0)html+='<div style="font-size:9px;color:#B7791F;margin-top:2px">\u2605 '+d.diamantes+' Diamante'+(d.diamantes>1?'s':'')+'</div>';
+      html+='</div>';
+    });
+  }
+
+  html+='</div>'; // end legenda
+  html+='</div>'; // end grid
+  el.innerHTML=html;
 }
 
 // ===== WOW REGIONAL SECTION =====
@@ -1875,7 +2145,9 @@ renderGG();
 renderConclusão();
 renderRegional();
 renderBrazilMap();
+renderRisco();
 renderWoW();
+renderPlanner();
 
 // Kanban removido
 
@@ -1953,6 +2225,7 @@ function applyGlobalFilters(){
   renderConclusão();
   renderRegional();
   renderBrazilMap();
+  renderRisco();
 }
 function resetGlobalFilters(){
   document.querySelectorAll('.ms-dd input[type=checkbox]').forEach(function(c){c.checked=false});
@@ -1964,6 +2237,84 @@ function resetGlobalFilters(){
   updateMSLabel('msEnvio','Envio');
   updateMSLabel('msRegional','Regional');
   applyGlobalFilters();
+}
+
+// ===== PLANNER (KANBAN) =====
+// Persistência: localStorage. Futura integração: API REST → PostgreSQL
+var TASKS=JSON.parse(localStorage.getItem('eaimeu_tasks')||'[]');
+function saveTasks(){localStorage.setItem('eaimeu_tasks',JSON.stringify(TASKS))}
+function genTaskId(){return 't_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)}
+function abrirNovaTask(){
+  document.getElementById('taskTitulo').value='';
+  document.getElementById('taskDesc').value='';
+  document.getElementById('taskResp').value='';
+  document.getElementById('taskParceiro').value='';
+  document.getElementById('taskPrio').value='Média';
+  document.getElementById('taskData').value='';
+  document.getElementById('plannerModal').style.display='flex';
+  setTimeout(function(){document.getElementById('taskTitulo').focus()},50);
+}
+function fecharModalTask(e){if(e.target.id==='plannerModal')document.getElementById('plannerModal').style.display='none'}
+function salvarTask(){
+  var titulo=document.getElementById('taskTitulo').value.trim();
+  if(!titulo){alert('Digite um título para a tarefa.');return}
+  var task={id:genTaskId(),titulo:titulo,desc:document.getElementById('taskDesc').value.trim(),resp:document.getElementById('taskResp').value.trim(),parceiro:document.getElementById('taskParceiro').value.trim(),prio:document.getElementById('taskPrio').value,data:document.getElementById('taskData').value,status:'todo',criado:new Date().toISOString()};
+  TASKS.push(task);saveTasks();renderPlanner();
+  document.getElementById('plannerModal').style.display='none';
+}
+function moverTask(id,novoStatus){
+  var t=TASKS.find(function(x){return x.id===id});
+  if(t){t.status=novoStatus;saveTasks();renderPlanner()}
+}
+function deletarTask(id){
+  if(!confirm('Excluir esta tarefa?'))return;
+  TASKS=TASKS.filter(function(x){return x.id!==id});saveTasks();renderPlanner();
+}
+var _dragTaskId=null;
+function onKanbanDragStart(id){_dragTaskId=id}
+function onKanbanDragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
+function onKanbanDrop(e,status){
+  e.preventDefault();
+  document.querySelectorAll('.kanban-dropzone').forEach(function(el){el.classList.remove('drag-over')});
+  if(_dragTaskId)moverTask(_dragTaskId,status);
+  _dragTaskId=null;
+}
+function renderPlanner(){
+  var search=(document.getElementById('plannerSearch')||{value:''}).value.toLowerCase();
+  var statuses=['todo','doing','done'];
+  var total=0;
+  statuses.forEach(function(st){
+    var filtered=TASKS.filter(function(t){
+      if(t.status!==st)return false;
+      if(search&&t.titulo.toLowerCase().indexOf(search)===-1&&(!t.parceiro||t.parceiro.toLowerCase().indexOf(search)===-1))return false;
+      return true;
+    });
+    total+=filtered.length;
+    var cnt=document.getElementById('cnt-'+st);
+    var cards=document.getElementById('cards-'+st);
+    if(cnt)cnt.textContent=filtered.length;
+    if(!cards)return;
+    if(!filtered.length){cards.innerHTML='<div style="text-align:center;color:#CBD5E0;font-size:11px;padding:20px 0">'+(st==='done'?'Nenhuma conclu\u00edda':'Nenhuma tarefa aqui')+'</div>';return}
+    cards.innerHTML=filtered.map(function(t){
+      var dataStr=t.data?'<span>\uD83D\uDCC5 '+t.data+'</span>':'';
+      var respStr=t.resp?'<span>\uD83D\uDC64 '+t.resp+'</span>':'';
+      var parcStr=t.parceiro?'<span style="color:var(--az)">\uD83E\uDD1D '+t.parceiro+'</span>':'';
+      var nextStatus=st==='todo'?'doing':st==='doing'?'done':'todo';
+      var nextLabel=st==='todo'?'Iniciar':st==='doing'?'Concluir':'Reabrir';
+      return '<div class="task-card" data-prio="'+t.prio+'" draggable="true" ondragstart="onKanbanDragStart(\''+t.id+'\')">'
+        +'<div class="task-card-title">'+t.titulo+'</div>'
+        +(t.desc?'<div class="task-card-desc">'+t.desc+'</div>':'')
+        +'<div class="task-card-meta">'
+        +'<span class="task-prio-badge '+t.prio+'">'+t.prio+'</span>'
+        +dataStr+respStr+parcStr
+        +'<button class="task-del-btn" onclick="deletarTask(\''+t.id+'\')" title="Excluir">\u2715</button>'
+        +'</div>'
+        +'<div style="margin-top:8px;text-align:right"><button class="btn btn-p" style="font-size:10px;padding:3px 10px" onclick="moverTask(\''+t.id+'\',\''+nextStatus+'\')">'+nextLabel+'</button></div>'
+        +'</div>';
+    }).join('');
+  });
+  var pc=document.getElementById('plannerCount');
+  if(pc)pc.textContent=total+' tarefa(s)';
 }
 
 // ===== GLOSSARIO =====
@@ -2013,15 +2364,42 @@ function resetGlobalFilters(){
 
   var termos=[
     ['Parceiro Ativo','Enviou pelo menos 1 lead nas ultimas 4 semanas'],
-    ['Parceiro Inativo','Nenhum lead nas ultimas 8+ semanas. Zero envio por 2 meses ou mais'],
+    ['Parceiro Inativo','Estado atual (retrospectivo): nenhum lead nas ultimas 8+ semanas. O parceiro JA parou de enviar. Diferente do Score de Risco — ver Indicadores Preditivos.'],
     ['Parceiro Sazonal','Envia em rajadas (6 ou menos semanas ativas em 12, mas media alta quando envia). Nao penalizado no ISP'],
     ['Atividade Recente','Qualquer envio de lead nas ultimas 4 semanas'],
     ['Historico Relevante','3 ou mais leads históricos OU pelo menos 1 compra realizada'],
     ['Recorrencia','Envio em 3+ meses distintos'],
     ['Deterioração','Queda progressiva: tendência menor que -30% por 2+ periodos'],
-    ['Reativação','Ação para reconectar parceiro Inativo que tem pagos. Gatilho: 8+ semanas parado com compras']
+    ['Reativação','Ação para reconectar parceiro Inativo que tem pagos. Gatilho: 8+ semanas parado com compras'],
+    ['MID (Mega Investidor)','CPF com ValorBruto ≥ R$ 10M ou CNPJ com ValorBruto ≥ R$ 5M. Excluídos do VLR a Distribuir por terem tratamento diferenciado.']
   ];
-  document.getElementById('glossTermos').innerHTML=termos.map(function(t){return '<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #F0F2F5"><span style="font-weight:600;min-width:130px;font-size:12px">'+t[0]+'</span><span style="font-size:12px;color:var(--ce)">'+t[1]+'</span></div>'}).join('');
+  document.getElementById('glossTermos').innerHTML=termos.map(function(t){return '<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #F0F2F5"><span style="font-weight:600;min-width:140px;font-size:12px;flex-shrink:0">'+t[0]+'</span><span style="font-size:12px;color:var(--ce)">'+t[1]+'</span></div>'}).join('');
+
+  // ─── INDICADORES PREDITIVOS ────────────────────────────────────────────────
+  var preditivos=[
+    ['Score de Risco de Churn',
+     '<span style="font-weight:700;color:#E05353">Predição prospectiva (0–100)</span> — diferente de "Inativo": mede a probabilidade de um parceiro <em>ainda ativo</em> se tornar inativo em breve, baseada em 5 fatores: (1) Tendência de queda (até 30 pts), (2) Semanas sem envio (até 30 pts), (3) ISP baixo (até 20 pts), (4) Classificação de envio ruim (até 10 pts), (5) Desconto para parceiros sazonais (–10 pts). Score ≥ 60 = intervenção urgente; 30–59 = monitoramento ativo; < 30 = risco baixo.<br><strong>Inativo ≠ Risco de Churn:</strong> Inativos já consolidaram a perda. O score serve para agir <em>antes</em> disso acontecer.'],
+    ['Benchmark por UF',
+     'Compara as métricas de um parceiro (ISP, Leads 4 semanas) com a mediana de todos os parceiros ativos na mesma Unidade Federativa (UF). Exibido no detalhe individual de cada parceiro. Percentil 50%+ = acima da mediana. Útil para contextualizar desempenho relativo dentro da praça.'],
+    ['Sazonalidade Projetada',
+     'Para cada parceiro, busca o volume de envios da mesma semana no ano anterior (ex: semana 15/2025 como base para semana 15/2026). Exibido como projeção das próximas 4 semanas. Útil para distinguir quedas reais de quedas esperadas pelo padrão histórico anual.'],
+  ];
+  document.getElementById('glossPreditivos').innerHTML=preditivos.map(function(t){
+    return '<div style="padding:10px 0;border-bottom:1px solid #F0F2F5">'
+      +'<div style="font-weight:700;font-size:12px;color:var(--ae);margin-bottom:4px">'+t[0]+'</div>'
+      +'<div style="font-size:12px;color:var(--ce);line-height:1.6">'+t[1]+'</div>'
+      +'</div>';
+  }).join('');
+
+  // ─── MÉTRICAS FINANCEIRAS ──────────────────────────────────────────────────
+  var financeiro=[
+    ['VLR a Distribuir','Soma do ValorBruto de todos os processos <strong>Em andamento</strong> vinculados ao parceiro, excluindo MIDs. Representa o potencial distribuível atual na esteira. Atualizado a cada geração do dashboard via BD_EnvioParceiros.'],
+    ['VLR a Distribuir / Sem','Versão semanal do VLR a Distribuir: soma do ValorBruto de processos Em andamento enviados em uma semana específica. Usado no comparativo WoW (semana atual vs semana anterior).'],
+    ['R$ Compra','Valor total de precatórios efetivamente comprados (pagos) vinculados ao parceiro. Base: BD_Pagos.'],
+    ['Ticket Médio','R$ Compra ÷ Quantidade de processos pagos. Indica o valor médio por precatório adquirido.'],
+    ['Taxa de Conversão','Pagos ÷ Leads × 100. Percentual de leads que se tornaram compra efetiva.'],
+  ];
+  document.getElementById('glossFinanceiro').innerHTML=financeiro.map(function(t){return '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #F0F2F5"><span style="font-weight:600;min-width:160px;font-size:12px;flex-shrink:0">'+t[0]+'</span><span style="font-size:12px;color:var(--ce);line-height:1.5">'+t[1]+'</span></div>'}).join('');
 })();
 
 // ===== LISTA DE DADOS (ex-EXPLORADOR) =====
@@ -2196,15 +2574,53 @@ function renderExp(){
     var conv=p.leads>0&&p.pagos>0?(p.taxa_conv.toFixed(1)+'%'):'--';
     var regBd='<span class="bd" style="background:'+(REG_COLORS[p.regional]||'#B0B0B0')+';color:'+(p.regional==='SP (C/D)'||p.regional==='N/I'?'#333':'#fff')+'">'+p.regional+'</span>';
     var vdStr=p.vlr_dist>0?'<span style="font-size:11px;font-weight:700;color:#805ad5">'+fB(p.vlr_dist)+'</span>':'<span style="color:#ccc">--</span>';
-    var r='<tr class="'+rc+'" style="cursor:pointer" onclick="toggleX(\''+rid+'\')"><td><strong>'+p.nome+'</strong></td><td>'+catBd(p.cat)+'</td><td>'+regBd+'</td><td>'+(p.isp===-1?'--':p.isp)+'</td><td>'+sauBd(p.saude)+'</td><td>'+fN(p.leads)+'</td><td>'+fN(p.sem4)+'</td><td>'+fN(p.pagos)+'</td><td>'+tk+'</td><td>'+conv+'</td><td>'+tA(p.tend)+'</td><td>'+vdStr+'</td><td>'+buildSparkVis(p)+'</td></tr>';
+    var _cs=calcChurnScore(p);
+    var _csCls=_cs>=60?'alto':_cs>=30?'medio':'baixo';
+    var _csIcon=_cs>=60?'\u{1F534}':_cs>=30?'\u{1F7E1}':'\u{1F7E2}';
+    var churnCell='<span class="churn-badge '+_csCls+'">'+_csIcon+' '+_cs+'</span>';
+    var r='<tr class="'+rc+'" style="cursor:pointer" onclick="toggleX(\''+rid+'\')"><td><strong>'+p.nome+'</strong></td><td>'+catBd(p.cat)+'</td><td>'+regBd+'</td><td>'+(p.isp===-1?'--':p.isp)+'</td><td>'+sauBd(p.saude)+'</td><td>'+fN(p.leads)+'</td><td>'+fN(p.sem4)+'</td><td>'+fN(p.pagos)+'</td><td>'+tk+'</td><td>'+conv+'</td><td>'+tA(p.tend)+'</td><td>'+vdStr+'</td><td>'+churnCell+'</td><td>'+buildSparkVis(p)+'</td></tr>';
     // Gerar analise conclusiva
     var analise=buildAnalise(p);
-    r+='<tr class="exr" id="'+rid+'"><td colspan="13"><div class="exc" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
+    r+='<tr class="exr" id="'+rid+'"><td colspan="14"><div class="exc" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
     // Coluna 1: Situacao e Contexto
     r+='<div style="display:flex;flex-direction:column;gap:10px">';
     r+='<div style="background:#F7FAFC;padding:10px 14px;border-radius:8px;border-left:3px solid var(--az)"><div class="fl" style="color:var(--az);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">\u{1F4CA} Situação Atual</div><div class="fv" style="font-size:12px;line-height:1.5">'+analise.situacao+'</div></div>';
     r+='<div style="background:#F7FAFC;padding:10px 14px;border-radius:8px;border-left:3px solid #ECC94B"><div class="fl" style="color:#B7791F;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">\u{1F50D} O que mudou</div><div class="fv" style="font-size:12px;line-height:1.5">'+analise.mudanca+'</div></div>';
     r+='<div style="background:#F0FFF4;padding:10px 14px;border-radius:8px;border-left:3px solid var(--vd)"><div class="fl" style="color:var(--vd);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">\u{1F3AF} Direcionamento</div><div class="fv" style="font-size:12px;line-height:1.5;font-weight:500">'+analise.direcao+'</div></div>';
+    // BENCHMARK UF
+    var _bench=calcBenchmarkUF(p);
+    if(_bench){
+      r+='<div class="bench-box"><h5>&#x1F4CA; Benchmark na UF '+p.uf+' ('+_bench.peers_n+' pares)</h5>';
+      r+='<div class="bench-grid">';
+      var _ispPct=Math.round(_bench.isp_pct);
+      var _ispDir=_ispPct>=50?'bk-up \u2191':'bk-down \u2193';
+      r+='<div class="bench-kpi"><div class="bk-label">ISP</div><div class="bk-value">'+(p.isp>=0?p.isp:'--')+'</div><div class="bk-sub"><span class="'+_ispDir+'">'+_ispPct+'% da UF</span> (med: '+Math.round(_bench.isp_med)+')</div></div>';
+      var _l4Pct=Math.round(_bench.l4_pct);
+      var _l4Dir=_l4Pct>=50?'bk-up \u2191':'bk-down \u2193';
+      r+='<div class="bench-kpi"><div class="bk-label">Leads 4sem</div><div class="bk-value">'+p.sem4+'</div><div class="bk-sub"><span class="'+_l4Dir+'">'+_l4Pct+'% da UF</span> (med: '+Math.round(_bench.l4_med)+')</div></div>';
+      r+='</div></div>';
+    }
+    // SAZONALIDADE PROJETADA
+    var _sproj=calcSazonProjecao(p);
+    var _hasProj=_sproj.some(function(s){return s.base!==null});
+    if(_hasProj){
+      r+='<div class="sazon-box"><h5>&#x1F4C5; Sazonalidade Projetada (pr\u00f3ximas 4 semanas)</h5>';
+      r+='<table class="sazon-table"><thead><tr><th>Semana</th><th>Base ano ant.</th><th>Projetado</th></tr></thead><tbody>';
+      _sproj.forEach(function(s){
+        var baseStr=s.base!==null?fN(s.base):'sem hist\u00f3rico';
+        var projStr=s.base!==null?('~'+fN(s.base)+' leads'):'--';
+        r+='<tr><td>'+s.sem+'</td><td>'+baseStr+'</td><td style="font-weight:700;color:var(--ae)">'+projStr+'</td></tr>';
+      });
+      r+='</tbody></table></div>';
+    }
+    // MOTIVOS DE REPROVACAO
+    if(p.top_motivos&&p.top_motivos.length){
+      r+='<div class="motivos-box"><h5>&#x274C; Top Motivos de Reprova\u00e7\u00e3o</h5>';
+      p.top_motivos.forEach(function(m){
+        r+='<div class="motivo-item"><span class="motivo-label">'+m[0]+'</span><span class="motivo-cnt">'+m[1]+'x</span></div>';
+      });
+      r+='</div>';
+    }
     r+='</div>';
     // Coluna 2: Indicadores e ISP
     r+='<div style="display:flex;flex-direction:column;gap:10px">';
@@ -2233,6 +2649,27 @@ function renderExp(){
     });
     r+='</div></div>';
     if(flagStr!=='--'){r+='<div style="font-size:10px;color:#7A8599;padding:4px 8px"><strong>Flags:</strong> '+flagStr+'</div>'}
+    // CHURN SCORE
+    r+='<div class="bench-box" style="background:#FFF5F5;border-color:#FED7D7"><h5 style="color:#9B2C2C">&#x26A0; Score de Risco de Churn</h5>';
+    r+='<div style="display:flex;align-items:center;gap:12px;padding:4px 0">';
+    r+='<div style="font-size:36px;font-weight:900;color:'+(_cs>=60?'#E05353':_cs>=30?'#F5A623':'#38a169')+'">'+_cs+'</div>';
+    r+='<div style="font-size:11px;color:#7A8599;line-height:1.6">';
+    r+='<div>Tend\u00eancia: <strong>'+(p.tend<-20?'Queda acentuada':p.tend<0?'Queda leve':p.tend>10?'Alta':'\u2014')+'</strong></div>';
+    r+='<div>Semanas parado: <strong>'+(p.semanas_parado||0)+'</strong></div>';
+    r+='<div>Sazon\u00e1l: <strong>'+(p.is_sazonal?'Sim (desconto aplicado)':'N\u00e3o')+'</strong></div>';
+    r+='</div></div></div>';
+    r+='</div>';
+    // CRM MOCKUP
+    r+='<div class="crm-mock-box">';
+    r+='<div class="crm-mock-header">\uD83D\uDCCB Hist\u00f3rico CRM <span class="crm-badge-tag">Em breve</span></div>';
+    r+='<div class="crm-mock-grid">';
+    r+='<div class="crm-field"><label>\u00daltimo Contato</label><span>\u2014</span></div>';
+    r+='<div class="crm-field"><label>Respons\u00e1vel</label><span>\u2014</span></div>';
+    r+='<div class="crm-field"><label>Canal</label><span>\u2014</span></div>';
+    r+='<div class="crm-field"><label>Resultado</label><span>\u2014</span></div>';
+    r+='</div>';
+    r+='<div class="crm-note">\u26a1 Integra\u00e7\u00e3o CRM em andamento. Dados ser\u00e3o populados automaticamente.</div>';
+    r+='</div>';
     r+='</div>';
     r+='</div></td></tr>';
     return r;

@@ -92,6 +92,30 @@ ws_e = wb.Worksheets("BD_EnvioParceiros")
 ult_e = ws_e.Cells(ws_e.Rows.Count, 1).End(-4162).Row
 print(f"  Envios: {ult_e} linhas")
 
+# Mapear colunas dinamicamente pelo cabeçalho (linha 1)
+_ncols = ws_e.UsedRange.Columns.Count
+_col_map = {}
+for _c in range(1, _ncols + 1):
+    _h = ws_e.Cells(1, _c).Value
+    if _h:
+        _col_map[str(_h).strip()] = _c
+
+# Colunas de motivo de reprovação (busca pelos nomes mais comuns)
+COL_MOTIVO = (_col_map.get("MotivoReprovacao")
+              or _col_map.get("Motivo Reprovacao")
+              or _col_map.get("MotivoReprovação")
+              or _col_map.get("Motivo Reprovação")
+              or 0)
+COL_MOTIVO2 = (_col_map.get("MotivoReprovacao2")
+               or _col_map.get("Motivo Reprovacao2")
+               or _col_map.get("MotivoReprovação2")
+               or _col_map.get("Motivo Reprovação2")
+               or 0)
+if COL_MOTIVO:
+    print(f"  Coluna MotivoReprovacao: {COL_MOTIVO}" + (f" | MotivoReprovacao2: {COL_MOTIVO2}" if COL_MOTIVO2 else ""))
+else:
+    print("  MotivoReprovacao nao encontrado no cabecalho (coluna sera ignorada)")
+
 envio = defaultdict(lambda: {
     "total": 0, "meses_set": set(), "por_semana": defaultdict(int),
     "por_mes": defaultdict(int), "primeira_sem": None, "ultima_sem": None,
@@ -103,6 +127,9 @@ vlr_dist_raw = defaultdict(lambda: {"total": 0.0, "por_semana": defaultdict(floa
 _vlr_mid_count = 0
 _vlr_mid_valor = 0.0
 _vlr_dist_count = 0
+
+# Motivos de reprovação por parceiro
+motivos_raw = defaultdict(lambda: defaultdict(int))
 
 linhas_filtradas = 0
 linhas_total = 0
@@ -140,6 +167,20 @@ for r in range(2, ult_e + 1):
             vd["total"] += vlr_bruto
             if ano >= 2025 and sem > 0:
                 vd["por_semana"][(ano, sem)] += vlr_bruto
+
+    # --- Motivo de reprovação ---
+    if COL_MOTIVO and status_val and str(status_val).strip().lower() in ("reprovado", "reprovada", "recusado", "recusada"):
+        mot = ws_e.Cells(r, COL_MOTIVO).Value
+        if mot:
+            mot = str(mot).strip()
+            if mot:
+                motivos_raw[nome][mot] += 1
+        if COL_MOTIVO2:
+            mot2 = ws_e.Cells(r, COL_MOTIVO2).Value
+            if mot2:
+                mot2 = str(mot2).strip()
+                if mot2 and mot2 != mot:
+                    motivos_raw[nome][mot2] += 1
 
     p = envio[nome]
     # Contagem por linha (cada registro = 1 lead)
@@ -640,6 +681,8 @@ for nome in todos_nomes:
             f"{a}-{s:02d}": round(v)
             for (a, s), v in vlr_dist_raw[nome]["por_semana"].items()
         },
+        # Top 3 motivos de reprovação (ex: [["Prazo vencido", 12], ["Outro", 5]])
+        "top_motivos": sorted(motivos_raw[nome].items(), key=lambda x: -x[1])[:3] if motivos_raw[nome] else [],
     })
 
 # Stats
