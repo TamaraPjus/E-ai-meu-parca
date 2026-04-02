@@ -690,6 +690,7 @@ var REG_LIST=['SP (C/D)','Regional A','Regional B','Regional D','N/I'];
 D.forEach(function(p){p.regional=getRegional(p.uf||'')});
 
 var GF=D; // dados filtrados globalmente
+var TASKS=JSON.parse(localStorage.getItem('eaimeu_tasks')||'[]'); // PLANNER - definido aqui para estar disponivel no init
 var semAtual=14;
 var anoISOAtual=2026;
 var diaSemanaAtual=4;
@@ -2161,7 +2162,7 @@ function resetGlobalFilters(){
 
 // ===== PLANNER (KANBAN) =====
 // Persistência: localStorage. Futura integração: API REST → PostgreSQL
-var TASKS=JSON.parse(localStorage.getItem('eaimeu_tasks')||'[]');
+// TASKS já declarado no topo (linha de inicialização global)
 function saveTasks(){localStorage.setItem('eaimeu_tasks',JSON.stringify(TASKS))}
 function genTaskId(){return 't_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)}
 function abrirNovaTask(){

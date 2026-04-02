@@ -770,6 +770,7 @@ var REG_LIST=['SP (C/D)','Regional A','Regional B','Regional D','N/I'];
 D.forEach(function(p){p.regional=getRegional(p.uf||'')});
 
 var GF=D; // dados filtrados globalmente
+var TASKS=JSON.parse(localStorage.getItem('eaimeu_tasks')||'[]'); // PLANNER - definido aqui para estar disponivel no init
 var semAtual=""" + str(sem_atual_num) + r""";
 var anoISOAtual=""" + str(ano_iso_atual) + r""";
 var diaSemanaAtual=""" + str(dia_semana_atual) + r""";
@@ -2241,7 +2242,7 @@ function resetGlobalFilters(){
 
 // ===== PLANNER (KANBAN) =====
 // Persistência: localStorage. Futura integração: API REST → PostgreSQL
-var TASKS=JSON.parse(localStorage.getItem('eaimeu_tasks')||'[]');
+// TASKS já declarado no topo (linha de inicialização global)
 function saveTasks(){localStorage.setItem('eaimeu_tasks',JSON.stringify(TASKS))}
 function genTaskId(){return 't_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)}
 function abrirNovaTask(){
@@ -2823,6 +2824,12 @@ with open(OUT_PATH, "w", encoding="utf-8") as f:
 
 print(f"HTML v2 gerado: {OUT_PATH}")
 print(f"Tamanho: {len(output):,} chars")
+
+# ====================================================================
+# ABRIR HTML NO BROWSER AUTOMATICAMENTE
+# ====================================================================
+import webbrowser as _wb
+_wb.open(OUT_PATH)
 
 # ====================================================================
 # AUTO-SAVE NO GITHUB
