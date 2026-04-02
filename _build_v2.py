@@ -1993,11 +1993,16 @@ function renderBrazilMap(){
     html+='</div>';
   }
 
-  // ── LAYOUT PRINCIPAL: MAPA (largo) | LEGENDA (estreita) ─────
-  html+='<div style="display:grid;grid-template-columns:3fr 1fr;gap:20px;align-items:start">';
+  // ── LAYOUT PRINCIPAL: flex responsivo — mapa (largura fixa) | legenda ─────
+  // O viewBox do SVG é 440×1700 (ratio ~1:3.86). Limitar a largura do mapa
+  // via clamp() controla a altura proporcional sem overflow no container.
+  // Font-sizes aumentados no SVG para manter legibilidade ao escalar para ~200px.
+  html+='<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:center;overflow:hidden">';
 
   // ── MAPA SVG ─────────────────────────────────────────────────
   var ufs=['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR','RS','SC','SE','SP','TO'];
+  // width="100%" + wrapper com clamp: 180px mínimo, 20vw fluido, 220px máximo
+  // altura resultante: 220×(1700/440) ≈ 850px  |  180×(1700/440) ≈ 695px
   var svg='<svg viewBox="0 0 440 1700" width="100%" style="font-family:Inter,sans-serif;display:block" preserveAspectRatio="xMidYMid meet">';
   ufs.forEach(function(uf){
     if(!BP[uf])return;
@@ -2008,29 +2013,32 @@ function renderBrazilMap(){
     else if(cnt===0)fill='#EEF2F8';
     else{var t=Math.pow(cnt/maxCount,0.55);fill=lerpColor('#9EC8F0','#0E2F5D',t)}
     svg+='<path d="'+BP[uf]+'" fill="'+fill+'" stroke="#fff" stroke-width="1.5"><title>'+uf+': '+cnt+' parceiro(s)'+(d.diamantes?' | \u2605 '+d.diamantes+' Diamante(s)':'')+'</title></path>';
-    // Label: sigla SEMPRE visível + contagem abaixo quando tem dados
+    // Labels: font-sizes em coordenadas viewBox aumentados para ~18/13px
+    // para garantir legibilidade quando o SVG é renderizado em ~200px de largura
+    // (escala ≈ 0.45 → 18×0.45 ≈ 8px renderizado, mínimo legível)
     if(BC[uf]){
       var cx=BC[uf][0],cy=BC[uf][1];
       var darkFill=(cnt/maxCount)>0.38;
       var txtC=darkFill?'#ffffff':(cnt===0?'#9BA5C0':'#0E2F5D');
       // Sigla em destaque
-      svg+='<text x="'+cx+'" y="'+(cy-(cnt>0?4:0))+'" text-anchor="middle" dominant-baseline="middle"'
-          +' font-size="10" font-weight="700" fill="'+txtC+'" pointer-events="none" letter-spacing="0.5">'+uf+'</text>';
+      svg+='<text x="'+cx+'" y="'+(cy-(cnt>0?6:0))+'" text-anchor="middle" dominant-baseline="middle"'
+          +' font-size="18" font-weight="700" fill="'+txtC+'" pointer-events="none" letter-spacing="0.5">'+uf+'</text>';
       // Contagem menor abaixo da sigla
       if(cnt>0)
-        svg+='<text x="'+cx+'" y="'+(cy+8)+'" text-anchor="middle" dominant-baseline="middle"'
-            +' font-size="8" font-weight="400" fill="'+txtC+'" opacity="0.9" pointer-events="none">'+cnt+'</text>';
+        svg+='<text x="'+cx+'" y="'+(cy+14)+'" text-anchor="middle" dominant-baseline="middle"'
+            +' font-size="13" font-weight="400" fill="'+txtC+'" opacity="0.9" pointer-events="none">'+cnt+'</text>';
       // Estrela Diamante no canto superior do estado
       if(d.diamantes>0)
-        svg+='<text x="'+(cx+12)+'" y="'+(cy-10)+'" text-anchor="middle"'
-            +' font-size="9" fill="#FFD700" pointer-events="none">\u2605</text>';
+        svg+='<text x="'+(cx+18)+'" y="'+(cy-16)+'" text-anchor="middle"'
+            +' font-size="14" fill="#FFD700" pointer-events="none">\u2605</text>';
     }
   });
   svg+='</svg>';
-  html+='<div>'+svg+'</div>';
+  // Wrapper com clamp para responsividade: nunca menor que 180px, nunca maior que 220px
+  html+='<div style="flex:0 0 auto;width:clamp(180px,20vw,220px);min-width:0">'+svg+'</div>';
 
   // ── LEGENDA LATERAL ───────────────────────────────────────────
-  html+='<div style="position:sticky;top:80px">';
+  html+='<div style="flex:1;min-width:160px;max-width:200px;position:sticky;top:80px">';
   html+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#7A8599;margin-bottom:14px">Legenda</div>';
 
   // Bloco gradiente com escala
